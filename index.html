@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Kit – Coka</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+:root{--y:#FFD93D;--b:#0a0a0a;--b2:#111;--b3:#1a1a1a;--w:#f5f0e8;--mut:#666;--brd:rgba(255,255,255,0.07);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--b);color:var(--w);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+
+/* ── PORTADA ── */
+#portada{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;position:relative;overflow:hidden;}
+#portada::before{content:'';position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 420px 200px 0;border-color:transparent var(--y) transparent transparent;opacity:.9;z-index:0;}
+#portada::after{content:'COKA';position:absolute;bottom:-30px;right:-20px;font-family:'Bebas Neue',sans-serif;font-size:280px;color:rgba(255,211,61,.04);line-height:1;pointer-events:none;z-index:0;}
+.tri-text{position:absolute;top:28px;right:80px;font-family:'Space Mono',monospace;font-size:10px;color:#000;font-weight:700;letter-spacing:.06em;text-align:right;z-index:2;pointer-events:none;}
+.cover-top{padding:32px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--brd);position:relative;z-index:1;}
+.cover-top-left{font-family:'Space Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:.05em;}
+.cover-main{display:flex;flex-direction:column;justify-content:center;padding:60px 40px;position:relative;z-index:1;}
+.cover-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.3em;color:var(--y);text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.cover-eyebrow::before{content:'';width:32px;height:1px;background:var(--y);}
+.cover-hero{display:flex;align-items:flex-end;gap:28px;flex-wrap:wrap;margin-bottom:28px;}
+.brand-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(100px,20vw,180px);line-height:.85;letter-spacing:-.02em;color:var(--w);}
+.brand-name .accent{display:inline-block;background:var(--y);color:#000;font-weight:900;padding:0 12px;line-height:.95;}
+.avatar-wrap{margin-bottom:8px;flex-shrink:0;}
+.avatar-ring{width:120px;height:120px;border-radius:50%;border:3px solid var(--y);overflow:hidden;background:var(--b3);display:flex;align-items:center;justify-content:center;cursor:default;box-shadow:0 0 0 6px rgba(255,211,61,.08);}
+.avatar-ring img{width:100%;height:100%;object-fit:cover;display:none;}
+.av-ph{font-family:'Bebas Neue',sans-serif;font-size:34px;color:#2a2a2a;}
+.tagline{font-size:clamp(18px,3vw,24px);color:rgba(245,240,232,.6);line-height:1.5;margin-bottom:16px;font-style:italic;}
+.real-name{font-family:'Space Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:.08em;margin-bottom:24px;}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.pill{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;border:1px solid var(--brd);color:var(--mut);}
+.pill.on{background:var(--y);color:var(--b);border-color:var(--y);}
+.cover-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-pdf{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.2em;padding:14px 28px;background:var(--y);color:var(--b);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:opacity .2s;clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);}
+.btn-pdf:hover{opacity:.88;}
+.btn-pdf svg{width:14px;height:14px;stroke:var(--b);fill:none;stroke-width:2.5;}
+.btn-mail{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.2em;padding:14px 28px;background:transparent;color:var(--w);border:1px solid rgba(255,255,255,.15);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,color .2s;}
+.btn-mail:hover{border-color:var(--y);color:var(--y);}
+.cover-stats-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--brd);position:relative;z-index:1;}
+.csb-item{padding:24px 28px;border-right:1px solid var(--brd);}
+.csb-item:last-child{border-right:none;}
+.csb-val{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--y);line-height:1;margin-bottom:4px;}
+.csb-lbl{font-size:10px;color:var(--mut);letter-spacing:.08em;font-family:'Space Mono',monospace;}
+
+/* ── SECCIONES ── */
+.section{padding:80px 40px;position:relative;}
+.section+.section{border-top:1px solid var(--brd);}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:48px;}
+.sec-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--y);letter-spacing:.1em;flex-shrink:0;}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,6vw,56px);color:var(--w);letter-spacing:.01em;line-height:1;}
+.sec-title .hl{color:var(--y);}
+.sec-line{flex:1;height:1px;background:var(--brd);}
+
+/* ── PRESENTACIÓN ── */
+.bio-outer{display:grid;grid-template-columns:1fr 3fr;gap:32px;align-items:start;}
+.bio-label-vert{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:.3em;color:var(--mut);writing-mode:vertical-rl;text-transform:uppercase;padding-top:4px;}
+.bio-quote{font-size:clamp(16px,2.5vw,20px);line-height:1.7;color:rgba(245,240,232,.75);border-left:3px solid var(--y);padding-left:24px;}
+
+/* ── REDES ── */
+.redes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;}
+.red-card{background:var(--b3);padding:28px 24px;border-top:3px solid var(--y);position:relative;overflow:hidden;}
+.red-card-wm{position:absolute;bottom:-20px;right:-10px;font-family:'Bebas Neue',sans-serif;font-size:90px;color:rgba(255,211,61,.04);line-height:1;pointer-events:none;}
+.red-icon-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.red-net{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;color:var(--y);text-transform:uppercase;}
+.red-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.red-val{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;}
+.red-lbl{font-size:10px;color:var(--mut);margin-top:4px;}
+
+/* ── AUDIENCIA ── */
+.aud-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;}
+.aud-panel{background:var(--b3);padding:32px 24px;}
+.aud-ttl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;color:var(--y);text-transform:uppercase;margin-bottom:24px;}
+.brow{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.blbl{font-size:12px;color:rgba(245,240,232,.5);min-width:72px;}
+.btrk{flex:1;height:5px;background:rgba(255,255,255,.05);}
+.bfll{height:100%;background:var(--y);}
+.bpct{font-size:12px;font-weight:600;color:var(--w);min-width:36px;text-align:right;font-family:'Space Mono',monospace;}
+
+/* ── SERVICIOS ── */
+.srv-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;}
+.srv-card{background:var(--b3);padding:32px 24px;border-top:2px solid transparent;transition:border-color .25s,background .25s;}
+.srv-card:hover{border-top-color:var(--y);background:#1e1e1e;}
+.srv-n{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--mut);margin-bottom:14px;}
+.srv-t{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--w);margin-bottom:8px;}
+.srv-d{font-size:12px;color:var(--mut);line-height:1.65;}
+
+/* ── CONTACTO ── */
+.contact-outer{position:relative;overflow:hidden;}
+.contact-outer::before{content:'';position:absolute;inset:0;background:var(--y);clip-path:polygon(0 0,100% 0,100% 75%,0 100%);z-index:0;}
+.contact-inner{position:relative;z-index:1;padding:60px 40px 80px;}
+.contact-kicker{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.25em;color:rgba(0,0,0,.75);text-transform:uppercase;margin-bottom:12px;}
+.contact-heading{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,9vw,96px);color:var(--b);line-height:.9;margin-bottom:16px;white-space:nowrap;}
+.contact-email-lnk{font-size:16px;color:rgba(0,0,0,.85);font-weight:600;margin-bottom:32px;display:block;}
+.contact-cta{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.2em;padding:16px 32px;background:var(--b);color:var(--y);border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity .2s;clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);}
+.contact-cta:hover{opacity:.82;}
+footer{padding:28px 40px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.ft{font-family:'Space Mono',monospace;font-size:10px;color:#2e2e2e;letter-spacing:.05em;}
+
+/* ── FORMULARIO SOLICITUD ── */
+.form-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ff{display:flex;flex-direction:column;gap:5px;}
+.ff.full{grid-column:1/-1;}
+.ff label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);}
+.ff input,.ff textarea,.ff select{background:#1a1a1a;border:1px solid var(--brd);color:var(--w);font-family:'DM Sans',sans-serif;font-size:14px;padding:12px 14px;outline:none;transition:border-color .2s;width:100%;}
+.ff input:focus,.ff textarea:focus,.ff select:focus{border-color:var(--y);}
+.ff textarea{resize:vertical;min-height:100px;}
+.ff select option{background:#1a1a1a;}
+.form-check{display:flex;align-items:center;gap:10px;grid-column:1/-1;margin-top:4px;}
+.form-check input[type=checkbox]{width:16px;height:16px;accent-color:var(--y);flex-shrink:0;}
+.form-check label{font-size:12px;color:var(--mut);}
+.btn-submit{grid-column:1/-1;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.2em;padding:15px 32px;background:var(--y);color:var(--b);border:none;cursor:pointer;transition:opacity .2s;margin-top:8px;}
+.btn-submit:hover{opacity:.88;}
+.btn-submit:disabled{opacity:.4;cursor:not-allowed;}
+.form-msg{grid-column:1/-1;font-family:'Space Mono',monospace;font-size:11px;padding:12px 16px;display:none;margin-top:4px;}
+.form-msg.ok{background:rgba(255,211,61,.08);border:1px solid rgba(255,211,61,.3);color:var(--y);}
+.form-msg.err{background:rgba(220,50,50,.08);border:1px solid rgba(220,50,50,.3);color:#e55;}
+
+/* ── ADMIN BTN ── */
+#adm-btn{position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:var(--b3);border:1px solid var(--brd);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;opacity:.1;transition:opacity .3s;border-radius:0;}
+#adm-btn:hover{opacity:1;}
+#adm-btn svg{width:16px;height:16px;stroke:var(--mut);fill:none;stroke-width:2;}
+
+/* ── ADMIN PANEL ── */
+#adm-panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+#adm-panel.open{display:flex;}
+.adm-box{background:#0d0d0d;border:1px solid rgba(255,255,255,.1);padding:40px;width:100%;max-width:720px;max-height:95vh;overflow-y:auto;}
+.adm-box h2{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.1em;color:var(--y);margin-bottom:6px;}
+.adm-box>p{font-size:12px;color:var(--mut);margin-bottom:24px;font-family:'Space Mono',monospace;}
+.af-sec{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#3a3a3a;margin:22px 0 10px;padding-bottom:7px;border-bottom:1px solid var(--brd);}
+.af{margin-bottom:12px;}
+.af label{display:block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);margin-bottom:5px;}
+.af input[type=text],.af input[type=password],.af input[type=number]{width:100%;background:#1a1a1a;border:1px solid var(--brd);color:var(--w);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 12px;outline:none;transition:border-color .2s;}
+.af input:focus{border-color:var(--y);}
+.photo-zone{display:flex;align-items:center;gap:14px;background:#1a1a1a;border:1px dashed #2a2a2a;padding:14px;cursor:pointer;transition:border-color .2s;}
+.photo-zone:hover{border-color:var(--y);}
+.mini-av{width:56px;height:56px;border-radius:50%;border:2px solid var(--y);overflow:hidden;background:#222;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mini-av img{width:100%;height:100%;object-fit:cover;display:none;}
+.mini-ph{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#2a2a2a;}
+.ph-hint p{font-size:13px;color:var(--w);margin-bottom:2px;}
+.ph-hint span{font-size:11px;color:var(--mut);}
+.btn-del-photo{width:100%;margin-top:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:8px;background:transparent;border:1px solid #333;color:#555;cursor:pointer;transition:border-color .2s,color .2s;}
+.btn-del-photo:hover{border-color:#e55;color:#e55;}
+.adm-acts{display:flex;gap:10px;margin-top:24px;}
+.a-save{flex:1;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.12em;padding:13px;background:var(--y);color:var(--b);border:none;cursor:pointer;}
+.a-save:hover{opacity:.9;}
+.a-cancel{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.12em;padding:13px 20px;background:transparent;color:var(--mut);border:1px solid var(--brd);cursor:pointer;}
+#pw-err{color:#e55;font-size:11px;margin-top:8px;display:none;font-family:'Space Mono',monospace;}
+.eng-result{font-family:'Space Mono',monospace;font-size:10px;color:var(--y);padding:8px 12px;background:#1a1a1a;margin-top:4px;}
+
+/* ── COTIZACIÓN ── */
+#quote-panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:300;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 16px;backdrop-filter:blur(6px);}
+#quote-panel.open{display:flex;}
+.qt-box{background:#0d0d0d;border:1px solid rgba(255,255,255,.1);padding:32px;width:100%;max-width:600px;margin:auto;}
+.qt-box h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.1em;color:var(--y);margin-bottom:4px;}
+.qt-box>p{font-size:11px;color:var(--mut);margin-bottom:28px;font-family:'Space Mono',monospace;}
+.qt-sec{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--y);margin:24px 0 12px;padding-bottom:7px;border-bottom:1px solid rgba(255,211,61,.2);}
+.qt-f{margin-bottom:12px;}
+.qt-f label{display:block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:5px;}
+.qt-f input{width:100%;background:#1a1a1a;border:1px solid var(--brd);color:var(--w);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 12px;outline:none;}
+.qt-f input:focus{border-color:var(--y);}
+.srv-hdr{display:grid;grid-template-columns:2fr 1fr 1fr 80px;gap:8px;margin-bottom:6px;}
+.srv-hdr span{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:#444;}
+.srv-row{display:grid;grid-template-columns:2fr 1fr 1fr 80px;gap:8px;align-items:center;margin-bottom:10px;}
+.srv-row input{background:#1a1a1a;border:1px solid var(--brd);color:var(--w);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;outline:none;width:100%;}
+.srv-row input:focus{border-color:var(--y);}
+.srv-sub{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--y);text-align:right;padding-right:4px;}
+.qt-total{background:#1a1a1a;border:1px solid rgba(255,211,61,.3);padding:20px;margin-top:24px;display:flex;justify-content:space-between;align-items:center;}
+.qt-total-lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);}
+.qt-total-val{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--y);}
+.qt-note textarea{width:100%;background:#1a1a1a;border:1px solid var(--brd);color:var(--w);font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 12px;outline:none;resize:vertical;min-height:70px;}
+.qt-note textarea:focus{border-color:var(--y);}
+.qt-acts{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.btn-gen-pdf{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.12em;padding:13px 22px;cursor:pointer;border:none;background:var(--y);color:var(--b);flex:1;}
+.btn-qt-close{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.12em;padding:13px 20px;background:transparent;color:var(--mut);border:1px solid var(--brd);cursor:pointer;}
+
+@media(max-width:600px){
+  .cover-stats-bar{grid-template-columns:repeat(2,1fr);}
+  .section{padding:60px 20px;}
+  .cover-top,.cover-main{padding:24px 20px;}
+  .bio-outer{grid-template-columns:1fr;}
+  .bio-label-vert{display:none;}
+  .form-wrap{grid-template-columns:1fr;}
+  .ff.full{grid-column:1;}
+  .form-check,.btn-submit,.form-msg{grid-column:1;}
+  footer{padding:24px 20px;}
+  .contact-inner{padding:40px 20px 60px;}
+  #portada::before{border-width:0 200px 120px 0;}
+}
+@media print{
+  #adm-btn,#adm-panel,#quote-panel,.cover-actions{display:none!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<section id="portada">
+  <div class="tri-text">COMEDIA · SKETCHES · GT</div>
+  <div class="cover-top">
+    <span class="cover-top-left">MEDIA KIT — 2026</span>
+  </div>
+  <div class="cover-main">
+    <div class="cover-eyebrow">Creador de contenido</div>
+    <div class="cover-hero">
+      <div class="avatar-wrap">
+        <div class="avatar-ring" id="avatar-ring">
+          <span class="av-ph" id="av-ph">CK</span>
+          <img id="av-img" src="" alt="Coka">
+        </div>
+      </div>
+      <div>
+        <div class="brand-name">C<span class="accent">O</span>KA</div>
+      </div>
+    </div>
+    <p class="tagline">"Solo soy un loco haciéndolos reír."</p>
+    <p class="real-name">Oscar Vinicio de León Ruíz</p>
+    <div class="pills">
+      <span class="pill on">Comedia</span>
+      <span class="pill on">Sketches</span>
+      <span class="pill">Entretenimiento</span>
+      <span class="pill">Guatemala 🇬🇹</span>
+    </div>
+    <div class="cover-actions">
+      <button class="btn-pdf" onclick="dlPDF()">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-4-4h3V4h2v8h3l-4 4z"/><path d="M4 18h16v2H4z"/></svg>
+        Descargar Media Kit PDF
+      </button>
+      <a href="mailto:odeleonruiz2712@gmail.com" class="btn-mail">Contactar</a>
+    </div>
+  </div>
+  <div class="cover-stats-bar">
+    <div class="csb-item"><div class="csb-val" id="csb-ig">—</div><div class="csb-lbl">Instagram</div></div>
+    <div class="csb-item"><div class="csb-val" id="csb-tt">—</div><div class="csb-lbl">TikTok</div></div>
+    <div class="csb-item"><div class="csb-val" id="csb-fb">—</div><div class="csb-lbl">Facebook</div></div>
+    <div class="csb-item"><div class="csb-val" id="csb-yt">—</div><div class="csb-lbl">YouTube</div></div>
+  </div>
+</section>
+
+<!-- 01 PRESENTACIÓN -->
+<section class="section" id="presentacion">
+  <div class="sec-head"><span class="sec-num">01 /</span><h2 class="sec-title">Presenta<span class="hl">ción</span></h2><span class="sec-line"></span></div>
+  <div class="bio-outer">
+    <div class="bio-label-vert">Bio</div>
+    <blockquote class="bio-quote">Creador de contenido guatemalteco especializado en comedia y sketches. Con presencia en Instagram, TikTok, Facebook y YouTube, genero contenido auténtico que conecta con audiencias reales. Mi estilo natural y sin filtros ha construido una comunidad activa que interactúa, comparte y recomienda orgánicamente.</blockquote>
+  </div>
+</section>
+
+<!-- 02 REDES SOCIALES -->
+<section class="section" id="redes">
+  <div class="sec-head"><span class="sec-num">02 /</span><h2 class="sec-title">Redes <span class="hl">Sociales</span></h2><span class="sec-line"></span></div>
+  <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:24px;">↻ Estadísticas del último mes</div>
+  <div class="redes-grid">
+    <!-- INSTAGRAM -->
+    <div class="red-card">
+      <div class="red-card-wm">IG</div>
+      <div class="red-icon-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="var(--y)" stroke="none"/></svg>
+        <span class="red-net">Instagram</span>
+      </div>
+      <div class="red-grid">
+        <div><div class="red-val" id="ig-seg">—</div><div class="red-lbl">Seguidores</div></div>
+        <div><div class="red-val" id="ig-engagement">—</div><div class="red-lbl">Engagement %</div></div>
+        <div><div class="red-val" id="ig-alcance">—</div><div class="red-lbl">Alcance mensual</div></div>
+        <div><div class="red-val" id="ig-views">—</div><div class="red-lbl">Reproducciones</div></div>
+      </div>
+    </div>
+    <!-- TIKTOK -->
+    <div class="red-card">
+      <div class="red-card-wm">TT</div>
+      <div class="red-icon-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--y)"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+        <span class="red-net">TikTok</span>
+      </div>
+      <div class="red-grid">
+        <div><div class="red-val" id="tt-seg">—</div><div class="red-lbl">Seguidores</div></div>
+        <div><div class="red-val" id="tt-eng">—</div><div class="red-lbl">Engagement %</div></div>
+        <div><div class="red-val" id="tt-imp">—</div><div class="red-lbl">Alcance mensual</div></div>
+        <div><div class="red-val" id="tt-views">—</div><div class="red-lbl">Reproducciones</div></div>
+      </div>
+    </div>
+    <!-- FACEBOOK -->
+    <div class="red-card">
+      <div class="red-card-wm">FB</div>
+      <div class="red-icon-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--y)"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.95 0-1.95.93-1.95 1.88v2.27h3.32l-.53 3.49h-2.79V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+        <span class="red-net">Facebook</span>
+      </div>
+      <div class="red-grid">
+        <div><div class="red-val" id="fb-seg">—</div><div class="red-lbl">Seguidores</div></div>
+        <div><div class="red-val" id="fb-eng">—</div><div class="red-lbl">Engagement %</div></div>
+        <div><div class="red-val" id="fb-imp">—</div><div class="red-lbl">Alcance mensual</div></div>
+        <div><div class="red-val" id="fb-views">—</div><div class="red-lbl">Reproducciones</div></div>
+      </div>
+    </div>
+    <!-- YOUTUBE -->
+    <div class="red-card">
+      <div class="red-card-wm">YT</div>
+      <div class="red-icon-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--y)"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 0 0 2.12 2.14C4.46 20.5 12 20.5 12 20.5s7.54 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.52V8.48L15.5 12l-5.75 3.52z"/></svg>
+        <span class="red-net">YouTube</span>
+      </div>
+      <div class="red-grid">
+        <div><div class="red-val" id="yt-sub">—</div><div class="red-lbl">Suscriptores</div></div>
+        <div><div class="red-val" id="yt-eng">—</div><div class="red-lbl">Engagement %</div></div>
+        <div><div class="red-val" id="yt-imp">—</div><div class="red-lbl">Alcance mensual</div></div>
+        <div><div class="red-val" id="yt-views">—</div><div class="red-lbl">Reproducciones</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 AUDIENCIA -->
+<section class="section" id="audiencia">
+  <div class="sec-head"><span class="sec-num">03 /</span><h2 class="sec-title">Perfil de <span class="hl">Audiencia</span></h2><span class="sec-line"></span></div>
+  <div class="aud-wrap">
+    <div class="aud-panel">
+      <div class="aud-ttl">Género</div>
+      <div class="brow"><span class="blbl">Mujeres</span><div class="btrk"><div class="bfll" id="bf-f" style="width:50%"></div></div><span class="bpct" id="bp-f">—</span></div>
+      <div class="brow"><span class="blbl">Hombres</span><div class="btrk"><div class="bfll" id="bf-m" style="width:50%;opacity:.45"></div></div><span class="bpct" id="bp-m">—</span></div>
+    </div>
+    <div class="aud-panel">
+      <div class="aud-ttl">Edad</div>
+      <div class="brow"><span class="blbl">18 – 24</span><div class="btrk"><div class="bfll" id="bf-18" style="width:33%"></div></div><span class="bpct" id="bp-18">—</span></div>
+      <div class="brow"><span class="blbl">25 – 34</span><div class="btrk"><div class="bfll" id="bf-25" style="width:33%;opacity:.6"></div></div><span class="bpct" id="bp-25">—</span></div>
+      <div class="brow"><span class="blbl">35 – 44</span><div class="btrk"><div class="bfll" id="bf-35" style="width:33%;opacity:.35"></div></div><span class="bpct" id="bp-35">—</span></div>
+    </div>
+    <div class="aud-panel">
+      <div class="aud-ttl">Ubicación</div>
+      <div class="brow"><span class="blbl">Guatemala</span><div class="btrk"><div class="bfll" id="bf-gt" style="width:70%"></div></div><span class="bpct" id="bp-gt">—</span></div>
+      <div class="brow"><span class="blbl">México</span><div class="btrk"><div class="bfll" id="bf-mx" style="width:15%;opacity:.55"></div></div><span class="bpct" id="bp-mx">—</span></div>
+      <div class="brow"><span class="blbl">USA</span><div class="btrk"><div class="bfll" id="bf-us" style="width:10%;opacity:.35"></div></div><span class="bpct" id="bp-us">—</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 SERVICIOS -->
+<section class="section" id="servicios">
+  <div class="sec-head"><span class="sec-num">04 /</span><h2 class="sec-title">Servicios para <span class="hl">Marcas</span></h2><span class="sec-line"></span></div>
+  <div class="srv-wrap">
+    <div class="srv-card"><div class="srv-n">01</div><div class="srv-t">Contenido patrocinado</div><div class="srv-d">Integración natural de tu marca en sketches y videos de comedia.</div></div>
+    <div class="srv-card"><div class="srv-n">02</div><div class="srv-t">Reels & TikToks</div><div class="srv-d">Videos cortos optimizados para máximo alcance y viralidad.</div></div>
+    <div class="srv-card"><div class="srv-n">03</div><div class="srv-t">Stories & Lives</div><div class="srv-d">Menciones en tiempo real con alta interacción directa.</div></div>
+    <div class="srv-card"><div class="srv-n">04</div><div class="srv-t">Campañas completas</div><div class="srv-d">Estrategia multi-plataforma para tu marca.</div></div>
+    <div class="srv-card"><div class="srv-n">05</div><div class="srv-t">Embajador de marca</div><div class="srv-d">Presencia continua y auténtica como vocero de tu producto.</div></div>
+    <div class="srv-card"><div class="srv-n">06</div><div class="srv-t">YouTube integrado</div><div class="srv-d">Aparición en videos de formato largo con alta retención.</div></div>
+  </div>
+</section>
+
+<!-- 05 SOLICITAR COTIZACIÓN -->
+<section class="section" id="solicitud">
+  <div class="sec-head"><span class="sec-num">05 /</span><h2 class="sec-title">Solicitar <span class="hl">Cotización</span></h2><span class="sec-line"></span></div>
+  <div class="form-wrap">
+    <div class="ff"><label>Nombre completo *</label><input type="text" id="f-name" placeholder="Tu nombre"></div>
+    <div class="ff"><label>Correo electrónico *</label><input type="email" id="f-email" placeholder="tu@correo.com"></div>
+    <div class="ff"><label>Empresa o marca</label><input type="text" id="f-company" placeholder="Nombre de tu empresa"></div>
+    <div class="ff"><label>Servicio de interés</label>
+      <select id="f-services">
+        <option value="">Selecciona un servicio</option>
+        <option>TikToks</option><option>YouTube Shorts</option><option>Videos largos YouTube</option>
+        <option>Reels Instagram</option><option>Reels Facebook</option><option>Stories</option>
+        <option>Lives</option><option>Campaña completa</option><option>Embajador de marca</option>
+      </select>
+    </div>
+    <div class="ff full"><label>Mensaje</label><textarea id="f-message" placeholder="Cuéntame sobre tu proyecto..."></textarea></div>
+    <div class="form-check"><input type="checkbox" id="f-consent"><label for="f-consent">Acepto que Coka use mi información para responder a esta solicitud.</label></div>
+    <button class="btn-submit" onclick="enviarSolicitud()">Enviar solicitud de cotización</button>
+    <div class="form-msg" id="form-msg"></div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section" id="contacto" style="padding:0;border-top:1px solid var(--brd);">
+  <div class="contact-outer">
+    <div class="contact-inner">
+      <div class="contact-kicker">¿Quieres trabajar con Coka?</div>
+      <div class="contact-heading">Hablemos.</div>
+      <a class="contact-email-lnk" href="mailto:odeleonruiz2712@gmail.com">odeleonruiz2712@gmail.com</a>
+      <a href="mailto:odeleonruiz2712@gmail.com" class="contact-cta">Escribir ahora</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="ft">© 2026 COKA · Oscar Vinicio de León Ruíz</span>
+  <span class="ft" id="upd-txt"></span>
+</footer>
+
+<!-- ADMIN BTN -->
+<button id="adm-btn" onclick="openAdm()">
+  <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6 20v-1a6 6 0 0 1 12 0v1"/></svg>
+</button>
+
+<!-- ADMIN PANEL -->
+<div id="adm-panel">
+  <div class="adm-box">
+
+    <!-- PANTALLA CONTRASEÑA -->
+    <div id="pw-scr">
+      <h2>Panel Admin</h2>
+      <p>// acceso restringido</p>
+      <div class="af"><label>Contraseña</label><input type="password" id="pw-in" placeholder="••••••••" onkeydown="if(event.key==='Enter')chkPw()"></div>
+      <div id="pw-err">// contraseña incorrecta</div>
+      <div class="adm-acts"><button class="a-save" onclick="chkPw()">Entrar</button><button class="a-cancel" onclick="closeAdm()">Cancelar</button></div>
+    </div>
+
+    <!-- FORMULARIO EDICIÓN (oculto hasta ingresar contraseña) -->
+    <div id="ed-scr" style="display:none">
+      <h2>Actualizar</h2>
+      <p>// los cambios se guardan localmente</p>
+
+      <div class="af-sec">Foto de perfil</div>
+      <div class="af">
+        <label>Tu foto circular</label>
+        <div class="photo-zone" onclick="triggerPhoto()">
+          <div class="mini-av"><span class="mini-ph" id="mini-ph">CK</span><img id="mini-img" src="" alt=""></div>
+          <div class="ph-hint"><p>Subir nueva foto</p><span>JPG o PNG cuadrada</span></div>
+        </div>
+        <button class="btn-del-photo" onclick="borrarFoto()">✕ Borrar foto actual</button>
+      </div>
+
+      <div class="af-sec">Instagram</div>
+      <div class="af"><label>Seguidores</label><input type="text" id="ai-ig-seg" placeholder="ej: 48.2K"></div>
+      <div class="af"><label>Alcance mensual</label><input type="text" id="ai-ig-alcance" placeholder="ej: 85K"></div>
+      <div class="af"><label>Reproducciones</label><input type="text" id="ai-ig-views" placeholder="ej: 320K"></div>
+      <div class="af-sec" style="color:#555;font-size:8px;">Engagement Instagram — ingresa datos del último mes</div>
+      <div class="af"><label>Likes</label><input type="number" id="ai-ig-likes" placeholder="ej: 3200" oninput="calcEng('ig')"></div>
+      <div class="af"><label>Comentarios</label><input type="number" id="ai-ig-comments" placeholder="ej: 180" oninput="calcEng('ig')"></div>
+      <div class="af"><label>Compartidos</label><input type="number" id="ai-ig-shares" placeholder="ej: 95" oninput="calcEng('ig')"></div>
+      <div class="eng-result">Engagement calculado: <span id="ai-ig-eng-result">—</span></div>
+
+      <div class="af-sec">TikTok</div>
+      <div class="af"><label>Seguidores</label><input type="text" id="ai-tt-seg" placeholder="ej: 112K"></div>
+      <div class="af"><label>Alcance mensual</label><input type="text" id="ai-tt-imp" placeholder="ej: 500K"></div>
+      <div class="af"><label>Reproducciones</label><input type="text" id="ai-tt-views" placeholder="ej: 1.2M"></div>
+      <div class="af-sec" style="color:#555;font-size:8px;">Engagement TikTok</div>
+      <div class="af"><label>Likes</label><input type="number" id="ai-tt-likes" placeholder="ej: 8500" oninput="calcEng('tt')"></div>
+      <div class="af"><label>Comentarios</label><input type="number" id="ai-tt-comments" placeholder="ej: 320" oninput="calcEng('tt')"></div>
+      <div class="af"><label>Compartidos</label><input type="number" id="ai-tt-shares" placeholder="ej: 210" oninput="calcEng('tt')"></div>
+      <div class="eng-result">Engagement calculado: <span id="ai-tt-eng-result">—</span></div>
+
+      <div class="af-sec">Facebook</div>
+      <div class="af"><label>Seguidores</label><input type="text" id="ai-fb-seg" placeholder="ej: 35K"></div>
+      <div class="af"><label>Alcance mensual</label><input type="text" id="ai-fb-imp" placeholder="ej: 90K"></div>
+      <div class="af"><label>Reproducciones</label><input type="text" id="ai-fb-views" placeholder="ej: 120K"></div>
+      <div class="af-sec" style="color:#555;font-size:8px;">Engagement Facebook</div>
+      <div class="af"><label>Likes / Reacciones</label><input type="number" id="ai-fb-likes" placeholder="ej: 1200" oninput="calcEng('fb')"></div>
+      <div class="af"><label>Comentarios</label><input type="number" id="ai-fb-comments" placeholder="ej: 85" oninput="calcEng('fb')"></div>
+      <div class="af"><label>Compartidos</label><input type="number" id="ai-fb-shares" placeholder="ej: 60" oninput="calcEng('fb')"></div>
+      <div class="eng-result">Engagement calculado: <span id="ai-fb-eng-result">—</span></div>
+
+      <div class="af-sec">YouTube</div>
+      <div class="af"><label>Suscriptores</label><input type="text" id="ai-yt-sub" placeholder="ej: 22.5K"></div>
+      <div class="af"><label>Alcance mensual</label><input type="text" id="ai-yt-imp" placeholder="ej: 150K"></div>
+      <div class="af"><label>Reproducciones</label><input type="text" id="ai-yt-views" placeholder="ej: 1.4M"></div>
+      <div class="af-sec" style="color:#555;font-size:8px;">Engagement YouTube</div>
+      <div class="af"><label>Likes</label><input type="number" id="ai-yt-likes" placeholder="ej: 950" oninput="calcEng('yt')"></div>
+      <div class="af"><label>Comentarios</label><input type="number" id="ai-yt-comments" placeholder="ej: 120" oninput="calcEng('yt')"></div>
+      <div class="af"><label>Compartidos</label><input type="number" id="ai-yt-shares" placeholder="ej: 45" oninput="calcEng('yt')"></div>
+      <div class="eng-result">Engagement calculado: <span id="ai-yt-eng-result">—</span></div>
+
+      <div class="af-sec">Audiencia — Género (%)</div>
+      <div class="af"><label>Mujeres</label><input type="text" id="ai-f" placeholder="ej: 60"></div>
+      <div class="af"><label>Hombres</label><input type="text" id="ai-m" placeholder="ej: 40"></div>
+
+      <div class="af-sec">Audiencia — Edad (%)</div>
+      <div class="af"><label>18–24</label><input type="text" id="ai-18" placeholder="ej: 38"></div>
+      <div class="af"><label>25–34</label><input type="text" id="ai-25" placeholder="ej: 42"></div>
+      <div class="af"><label>35–44</label><input type="text" id="ai-35" placeholder="ej: 20"></div>
+
+      <div class="af-sec">Audiencia — Ubicación (%)</div>
+      <div class="af"><label>Guatemala</label><input type="text" id="ai-gt" placeholder="ej: 70"></div>
+      <div class="af"><label>México</label><input type="text" id="ai-mx" placeholder="ej: 15"></div>
+      <div class="af"><label>USA</label><input type="text" id="ai-us" placeholder="ej: 10"></div>
+
+      <div class="adm-acts">
+        <button class="a-save" onclick="saveAll()">Guardar stats</button>
+        <button class="a-cancel" onclick="closeAdm()">Cerrar</button>
+      </div>
+      <div style="margin-top:10px">
+        <button class="a-save" style="width:100%;background:#1a1a1a;color:var(--y);border:1px solid var(--y);" onclick="closeAdm();openQuote()">✦ Generar Cotización</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE PANEL -->
+<div id="quote-panel">
+  <div class="qt-box">
+    <h2>Generar Cotización</h2>
+    <p>// solo visible para ti · el cliente recibe el PDF</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div class="qt-f"><label>Nombre del cliente</label><input type="text" id="qt-client" placeholder="Empresa XYZ"></div>
+      <div class="qt-f"><label>Fecha</label><input type="text" id="qt-date" placeholder="5 junio 2026"></div>
+    </div>
+    <div class="qt-f"><label>Número de cotización</label><input type="text" id="qt-num" placeholder="COT-001"></div>
+    <div class="qt-sec">TikTok</div>
+    <div class="srv-hdr"><span>Servicio</span><span>Cantidad</span><span>Precio unit. (Q)</span><span>Subtotal</span></div>
+    <div class="srv-row"><input type="text" value="TikToks" id="sn-tiktok"><input type="number" min="0" value="0" id="sq-tiktok" oninput="calcTotal()"><input type="number" min="0" value="0" id="sp-tiktok" oninput="calcTotal()"><div class="srv-sub" id="ss-tiktok">Q0</div></div>
+    <div class="qt-sec">YouTube</div>
+    <div class="srv-hdr"><span>Servicio</span><span>Cantidad</span><span>Precio unit. (Q)</span><span>Subtotal</span></div>
+    <div class="srv-row"><input type="text" value="YouTube Shorts" id="sn-ytshort"><input type="number" min="0" value="0" id="sq-ytshort" oninput="calcTotal()"><input type="number" min="0" value="0" id="sp-ytshort" oninput="calcTotal()"><div class="srv-sub" id="ss-ytshort">Q0</div></div>
+    <div class="srv-row"><input type="text" value="Videos largos YouTube" id="sn-ytlong"><input type="number" min="0" value="0" id="sq-ytlong" oninput="calcTotal()"><input type="number" min="0" value="0" id="sp-ytlong" oninput="calcTotal()"><div class="srv-sub" id="ss-ytlong">Q0</div></div>
+    <div class="qt-sec">Instagram & Facebook</div>
+    <div class="srv-hdr"><span>Servicio</span><span>Cantidad</span><span>Precio unit. (Q)</span><span>Subtotal</span></div>
+    <div class="srv-row"><input type="text" value="Reels Instagram" id="sn-igreel"><input type="number" min="0" value="0" id="sq-igreel" oninput="calcTotal()"><input type="number" min="0" value="0" id="sp-igreel" oninput="calcTotal()"><div class="srv-sub" id="ss-igreel">Q0</div></div>
+    <div class="srv-row"><input type="text" value="Reels Facebook" id="sn-fbreel"><input type="number" min="0" value="0" id="sq-fbreel" oninput="calcTotal()"><input type="number" min="0" value="0" id="sp-fbreel" oninput="calcTotal()"><div class="srv-sub" id="ss-fbreel">Q0</div></div>
+    <div class="srv-row"><input type="text" value="Stories" id="sn-stories"><input type="number" min="0" value="0" id="sq-stories" oninput="calcTotal()"><input type="number" min="0" value="0" id="sp-stories" oninput="calcTotal()"><div class="srv-sub" id="ss-stories">Q0</div></div>
+    <div class="qt-sec">Otros</div>
+    <div class="srv-hdr"><span>Servicio</span><span>Cantidad</span><span>Precio unit. (Q)</span><span>Subtotal</span></div>
+    <div class="srv-row"><input type="text" value="Lives" id="sn-live"><input type="number" min="0" value="0" id="sq-live" oninput="calcTotal()"><input type="number" min="0" value="0" id="sp-live" oninput="calcTotal()"><div class="srv-sub" id="ss-live">Q0</div></div>
+    <div class="srv-row"><input type="text" placeholder="Servicio personalizado" id="sn-custom"><input type="number" min="0" value="0" id="sq-custom" oninput="calcTotal()"><input type="number" min="0" value="0" id="sp-custom" oninput="calcTotal()"><div class="srv-sub" id="ss-custom">Q0</div></div>
+    <div class="qt-total"><div class="qt-total-lbl">Total cotización</div><div class="qt-total-val" id="qt-total-val">Q0</div></div>
+    <div class="qt-sec">Notas adicionales</div>
+    <div class="qt-note"><textarea id="qt-notes" placeholder="Ej: Incluye 1 revisión por pieza. Entrega en 7 días hábiles."></textarea></div>
+    <div class="qt-acts">
+      <button class="btn-gen-pdf" onclick="generarCotPDF()">Descargar cotización PDF</button>
+      <button class="btn-qt-close" onclick="closeQuote()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── EMAILJS ──
+emailjs.init('IP4BAJOAMbB-rP8uQ');
+
+// ── CONSTANTES ──
+const PW = 'coka2026';
+const SRVS = ['tiktok','ytshort','ytlong','igreel','fbreel','stories','live','custom'];
+
+// IDs de los campos de texto simples
+const TKEYS = [
+  'ig-seg','ig-alcance','ig-views',
+  'tt-seg','tt-imp','tt-views',
+  'fb-seg','fb-imp','fb-views',
+  'yt-sub','yt-imp','yt-views'
+];
+const BKEYS = ['f','m','18','25','35','gt','mx','us'];
+
+// ── CARGAR DATOS ──
+function loadAll() {
+  // Stats textuales
+  TKEYS.forEach(function(k) {
+    var v = localStorage.getItem('ck_' + k);
+    if (!v) return;
+    var el = document.getElementById(k);
+    if (el) el.textContent = v;
+    // Mirror to cover bar
+    var mirror = {'ig-seg':'csb-ig','tt-seg':'csb-tt','fb-seg':'csb-fb','yt-sub':'csb-yt'};
+    if (mirror[k]) { var ce = document.getElementById(mirror[k]); if (ce) ce.textContent = v; }
+  });
+
+  // Engagement calculado
+  ['ig','tt','fb','yt'].forEach(function(net) {
+    var v = localStorage.getItem('ck_eng_' + net);
+    if (!v) return;
+    var ids = {'ig':'ig-engagement','tt':'tt-eng','fb':'fb-eng','yt':'yt-eng'};
+    var el = document.getElementById(ids[net]);
+    if (el) el.textContent = v + '%';
+  });
+
+  // Barras audiencia
+  BKEYS.forEach(function(k) {
+    var v = localStorage.getItem('ck_b_' + k);
+    if (!v) return;
+    var bf = document.getElementById('bf-' + k);
+    var bp = document.getElementById('bp-' + k);
+    if (bf) bf.style.width = v + '%';
+    if (bp) bp.textContent = v + '%';
+  });
+
+  // Foto
+  var photo = localStorage.getItem('ck_photo');
+  if (photo) applyPhoto(photo);
+
+  // Fecha actualización
+  var d = localStorage.getItem('ck_upd');
+  if (d) document.getElementById('upd-txt').textContent = 'Actualizado: ' + d;
+}
+
+function applyPhoto(src) {
+  var img = document.getElementById('av-img');
+  var ph = document.getElementById('av-ph');
+  if (img) { img.src = src; img.style.display = 'block'; }
+  if (ph) ph.style.display = 'none';
+  var mi = document.getElementById('mini-img');
+  var mp = document.getElementById('mini-ph');
+  if (mi) { mi.src = src; mi.style.display = 'block'; }
+  if (mp) mp.style.display = 'none';
+}
+
+function borrarFoto() {
+  localStorage.removeItem('ck_photo');
+  var img = document.getElementById('av-img');
+  var ph = document.getElementById('av-ph');
+  if (img) { img.src = ''; img.style.display = 'none'; }
+  if (ph) ph.style.display = '';
+  var mi = document.getElementById('mini-img');
+  var mp = document.getElementById('mini-ph');
+  if (mi) { mi.src = ''; mi.style.display = 'none'; }
+  if (mp) mp.style.display = '';
+}
+
+// ── FOTO — solo desde admin ──
+function triggerPhoto() {
+  if (!document.getElementById('adm-panel').classList.contains('open')) return;
+  var inp = document.createElement('input');
+  inp.type = 'file';
+  inp.accept = 'image/*';
+  inp.onchange = function(e) {
+    var f = e.target.files[0]; if (!f) return;
+    var r = new FileReader();
+    r.onload = function(ev) {
+      localStorage.setItem('ck_photo', ev.target.result);
+      applyPhoto(ev.target.result);
+    };
+    r.readAsDataURL(f);
+  };
+  inp.click();
+}
+
+// ── ADMIN ──
+function openAdm() {
+  document.getElementById('pw-scr').style.display = 'block';
+  document.getElementById('ed-scr').style.display = 'none';
+  document.getElementById('pw-in').value = '';
+  document.getElementById('pw-err').style.display = 'none';
+  document.getElementById('adm-panel').classList.add('open');
+  setTimeout(function() { document.getElementById('pw-in').focus(); }, 100);
+}
+
+function closeAdm() {
+  document.getElementById('adm-panel').classList.remove('open');
+}
+
+function chkPw() {
+  if (document.getElementById('pw-in').value === PW) {
+    document.getElementById('pw-scr').style.display = 'none';
+    document.getElementById('ed-scr').style.display = 'block';
+    prefillAdmin();
+  } else {
+    document.getElementById('pw-err').style.display = 'block';
+  }
+}
+
+function prefillAdmin() {
+  TKEYS.forEach(function(k) {
+    var v = localStorage.getItem('ck_' + k);
+    var inp = document.getElementById('ai-' + k);
+    if (inp && v) inp.value = v;
+  });
+  BKEYS.forEach(function(k) {
+    var v = localStorage.getItem('ck_b_' + k);
+    var inp = document.getElementById('ai-' + k);
+    if (inp && v) inp.value = v;
+  });
+  // Raw engagement data
+  ['ig','tt','fb','yt'].forEach(function(net) {
+    ['likes','comments','shares'].forEach(function(field) {
+      var v = localStorage.getItem('ck_raw_' + net + '_' + field);
+      var inp = document.getElementById('ai-' + net + '-' + field);
+      if (inp && v) { inp.value = v; }
+    });
+    calcEng(net);
+  });
+  // Foto
+  var photo = localStorage.getItem('ck_photo');
+  if (photo) applyPhoto(photo);
+}
+
+// ── ENGAGEMENT AUTO ──
+function calcEng(net) {
+  var likeInp = document.getElementById('ai-' + net + '-likes');
+  var cmtInp  = document.getElementById('ai-' + net + '-comments');
+  var shrInp  = document.getElementById('ai-' + net + '-shares');
+  var segKey  = {'ig':'ai-ig-seg','tt':'ai-tt-seg','fb':'ai-fb-seg','yt':'ai-yt-sub'}[net];
+  var segInp  = document.getElementById(segKey);
+
+  var likes    = parseFloat(likeInp ? likeInp.value : 0) || 0;
+  var comments = parseFloat(cmtInp  ? cmtInp.value  : 0) || 0;
+  var shares   = parseFloat(shrInp  ? shrInp.value   : 0) || 0;
+
+  // Parse followers (handles K and M)
+  var segStr = segInp ? segInp.value : (localStorage.getItem('ck_' + segKey.replace('ai-','')) || '0');
+  var seg = parseFloat(segStr.replace(/[Kk]/g,'000').replace(/[Mm]/g,'000000')) || 1;
+
+  var total = likes + comments + shares;
+  var pct = seg > 0 ? Math.round((total / seg) * 1000) / 10 : 0;
+
+  var result = document.getElementById('ai-' + net + '-eng-result');
+  if (result) result.textContent = pct + '%';
+  window['_eng_' + net] = pct;
+}
+
+function saveAll() {
+  TKEYS.forEach(function(k) {
+    var inp = document.getElementById('ai-' + k);
+    if (inp && inp.value.trim()) localStorage.setItem('ck_' + k, inp.value.trim());
+  });
+  BKEYS.forEach(function(k) {
+    var inp = document.getElementById('ai-' + k);
+    if (inp && inp.value.trim()) localStorage.setItem('ck_b_' + k, inp.value.trim());
+  });
+  // Save engagement
+  ['ig','tt','fb','yt'].forEach(function(net) {
+    var v = window['_eng_' + net];
+    if (v !== undefined) localStorage.setItem('ck_eng_' + net, v);
+    ['likes','comments','shares'].forEach(function(field) {
+      var inp = document.getElementById('ai-' + net + '-' + field);
+      if (inp && inp.value.trim()) localStorage.setItem('ck_raw_' + net + '_' + field, inp.value.trim());
+    });
+  });
+  var now = new Date().toLocaleDateString('es-GT',{day:'2-digit',month:'long',year:'numeric'});
+  localStorage.setItem('ck_upd', now);
+  loadAll();
+  closeAdm();
+}
+
+document.getElementById('adm-panel').addEventListener('click', function(e) {
+  if (e.target === this) closeAdm();
+});
+
+// ── EMAILJS FORM ──
+function enviarSolicitud() {
+  var name    = document.getElementById('f-name').value.trim();
+  var email   = document.getElementById('f-email').value.trim();
+  var company = document.getElementById('f-company').value.trim();
+  var services= document.getElementById('f-services').value;
+  var message = document.getElementById('f-message').value.trim();
+  var consent = document.getElementById('f-consent').checked;
+  var msg     = document.getElementById('form-msg');
+  var btn     = document.querySelector('.btn-submit');
+
+  if (!name || !email) {
+    msg.textContent = '// Por favor completa nombre y correo.';
+    msg.className = 'form-msg err'; msg.style.display = 'block'; return;
+  }
+  if (!consent) {
+    msg.textContent = '// Debes aceptar el consentimiento.';
+    msg.className = 'form-msg err'; msg.style.display = 'block'; return;
+  }
+  btn.disabled = true; btn.textContent = 'Enviando...';
+  emailjs.send('service_t1nc0rr','krp64xa',{
+    to_email:'odeleonruiz2712@gmail.com',name:name,email:email,
+    company:company||'No indicó',services:services||'No especificó',
+    message:message||'Sin mensaje'
+  }).then(function() {
+    msg.textContent = '// ¡Solicitud enviada! Te contactaré pronto.';
+    msg.className = 'form-msg ok'; msg.style.display = 'block';
+    btn.textContent = '¡Enviado!';
+    ['f-name','f-email','f-company','f-message'].forEach(function(id){ document.getElementById(id).value=''; });
+    document.getElementById('f-services').value='';
+    document.getElementById('f-consent').checked=false;
+  }).catch(function(err) {
+    msg.textContent = '// Error al enviar. Escríbeme directo.';
+    msg.className = 'form-msg err'; msg.style.display = 'block';
+    btn.disabled=false; btn.textContent='Enviar solicitud de cotización';
+  });
+}
+
+// ── COTIZACIÓN ──
+function openQuote() {
+  document.getElementById('quote-panel').classList.add('open');
+  var today = new Date().toLocaleDateString('es-GT',{day:'2-digit',month:'long',year:'numeric'});
+  if (!document.getElementById('qt-date').value) document.getElementById('qt-date').value = today;
+  if (!document.getElementById('qt-num').value) document.getElementById('qt-num').value = 'COT-' + Date.now().toString().slice(-4);
+  calcTotal();
+}
+function closeQuote() { document.getElementById('quote-panel').classList.remove('open'); }
+document.getElementById('quote-panel').addEventListener('click', function(e) { if(e.target===this)closeQuote(); });
+
+function calcTotal() {
+  var total = 0;
+  SRVS.forEach(function(k) {
+    var q = parseFloat(document.getElementById('sq-'+k) ? document.getElementById('sq-'+k).value : 0)||0;
+    var p = parseFloat(document.getElementById('sp-'+k) ? document.getElementById('sp-'+k).value : 0)||0;
+    var sub = q * p; total += sub;
+    var el = document.getElementById('ss-'+k);
+    if (el) el.textContent = 'Q' + sub.toLocaleString('es-GT');
+  });
+  document.getElementById('qt-total-val').textContent = 'Q' + total.toLocaleString('es-GT');
+  return total;
+}
+
+function generarCotPDF() {
+  var client = document.getElementById('qt-client').value || 'Cliente';
+  var date   = document.getElementById('qt-date').value;
+  var num    = document.getElementById('qt-num').value;
+  var notes  = document.getElementById('qt-notes').value;
+  var total  = calcTotal();
+  var rows = '';
+  SRVS.forEach(function(k) {
+    var q = parseFloat(document.getElementById('sq-'+k) ? document.getElementById('sq-'+k).value : 0)||0;
+    var p = parseFloat(document.getElementById('sp-'+k) ? document.getElementById('sp-'+k).value : 0)||0;
+    var name = document.getElementById('sn-'+k) ? document.getElementById('sn-'+k).value : '';
+    if (q > 0 && name) {
+      rows += '<tr><td style="padding:10px 14px;border-bottom:1px solid #222;font-size:14px;">'+name+'</td>'
+        +'<td style="padding:10px 14px;border-bottom:1px solid #222;text-align:center;font-size:14px;">'+q+'</td>'
+        +'<td style="padding:10px 14px;border-bottom:1px solid #222;text-align:right;font-size:14px;">Q'+p.toLocaleString('es-GT')+'</td>'
+        +'<td style="padding:10px 14px;border-bottom:1px solid #222;text-align:right;font-size:14px;font-weight:700;">Q'+(q*p).toLocaleString('es-GT')+'</td></tr>';
+    }
+  });
+  var win = window.open('','_blank');
+  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Cotizacion '+num+'</title>'
+    +'<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"><\/script>'
+    +'<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;800&display=swap" rel="stylesheet">'
+    +'</head><body style="margin:0;background:#fff;font-family:DM Sans,Arial,sans-serif;">'
+    +'<div id="doc">'
+    +'<div style="background:#0a0a0a;padding:40px;position:relative;overflow:hidden;">'
+    +'<div style="position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 160px 160px 0;border-color:transparent #FFD93D transparent transparent;"></div>'
+    +'<div style="font-family:Bebas Neue,Arial,sans-serif;font-size:64px;line-height:1;color:#fff;letter-spacing:-.02em;">C<span style="background:#FFD93D;color:#000;padding:0 6px;">O</span>KA</div>'
+    +'<div style="font-size:10px;color:#555;letter-spacing:.1em;font-family:monospace;margin-top:6px;">COTIZACIÓN DE SERVICIOS</div>'
+    +'</div>'
+    +'<div style="background:#f9f9f9;padding:20px 40px;display:flex;justify-content:space-between;border-bottom:3px solid #FFD93D;">'
+    +'<div><div style="font-size:10px;color:#999;font-family:monospace;margin-bottom:4px;">PARA</div><div style="font-size:20px;font-weight:800;">'+client+'</div></div>'
+    +'<div style="text-align:right;"><div style="font-size:10px;color:#999;font-family:monospace;margin-bottom:4px;">N° COTIZACIÓN</div>'
+    +'<div style="font-size:16px;font-weight:800;color:#FFD93D;background:#0a0a0a;padding:2px 10px;display:inline-block;">'+num+'</div>'
+    +'<div style="font-size:11px;color:#999;margin-top:4px;font-family:monospace;">'+date+'</div></div></div>'
+    +'<div style="padding:32px 40px 0;">'
+    +'<table style="width:100%;border-collapse:collapse;">'
+    +'<thead><tr style="background:#0a0a0a;">'
+    +'<th style="padding:12px 14px;text-align:left;font-size:10px;letter-spacing:.15em;color:#FFD93D;font-family:monospace;">SERVICIO</th>'
+    +'<th style="padding:12px 14px;text-align:center;font-size:10px;letter-spacing:.15em;color:#FFD93D;font-family:monospace;">CANT.</th>'
+    +'<th style="padding:12px 14px;text-align:right;font-size:10px;letter-spacing:.15em;color:#FFD93D;font-family:monospace;">PRECIO UNIT.</th>'
+    +'<th style="padding:12px 14px;text-align:right;font-size:10px;letter-spacing:.15em;color:#FFD93D;font-family:monospace;">SUBTOTAL</th>'
+    +'</tr></thead><tbody>'+rows+'</tbody></table></div>'
+    +'<div style="margin:0 40px;background:#0a0a0a;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;">'
+    +'<div style="font-family:monospace;font-size:11px;letter-spacing:.2em;color:#555;text-transform:uppercase;">Total</div>'
+    +'<div style="font-family:Bebas Neue,Arial,sans-serif;font-size:40px;color:#FFD93D;">Q'+total.toLocaleString('es-GT')+'</div></div>'
+    +(notes?'<div style="padding:24px 40px;"><div style="font-size:10px;letter-spacing:.15em;font-family:monospace;color:#999;margin-bottom:8px;text-transform:uppercase;">Notas</div><div style="font-size:13px;color:#444;line-height:1.7;background:#f9f9f9;padding:14px 16px;border-left:3px solid #FFD93D;">'+notes.replace(/\n/g,'<br>')+'</div></div>':'')
+    +'<div style="padding:24px 40px;border-top:1px solid #eee;display:flex;justify-content:space-between;align-items:center;">'
+    +'<div><div style="font-size:13px;font-weight:800;">Oscar Vinicio de León Ruíz</div>'
+    +'<div style="font-size:12px;color:#999;font-family:monospace;">odeleonruiz2712@gmail.com</div></div>'
+    +'<div style="font-family:Bebas Neue,Arial,sans-serif;font-size:28px;color:#0a0a0a;opacity:.06;">COKA</div></div>'
+    +'</div>'
+    +'<script>window.onload=function(){html2pdf().set({margin:0,filename:"Cotizacion-'+num+'-Coka.pdf",image:{type:"jpeg",quality:.97},html2canvas:{scale:2,backgroundColor:"#fff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:"avoid-all"}}).from(document.getElementById("doc")).save().then(function(){setTimeout(function(){window.close();},1500);});}<\/script>'
+    +'</body></html>');
+  win.document.close();
+}
+
+// ── PDF MEDIA KIT ──
+function dlPDF() {
+  var btn = document.querySelector('.btn-pdf');
+  btn.textContent = 'Generando...';
+  btn.disabled = true;
+
+  function g(k) { return localStorage.getItem('ck_' + k) || '—'; }
+  var photo = localStorage.getItem('ck_photo');
+  var photoHTML = photo
+    ? '<img src="'+photo+'" style="width:100%;height:100%;object-fit:cover;">'
+    : '<div style="width:100%;height:100%;background:#222;display:flex;align-items:center;justify-content:center;font-size:28px;color:#555;font-weight:900;">CK</div>';
+
+  function netCard(net, label, segKey, segLabel) {
+    var eng = localStorage.getItem('ck_eng_' + net) || '—';
+    var alc = g(net === 'yt' ? 'yt-imp' : net+'-imp');
+    var views = g(net+'-views');
+    var seg = g(segKey);
+    return '<div style="background:#fff;border:1px solid #eee;border-radius:8px;padding:20px;border-top:4px solid #FFD93D;">'
+      +'<div style="font-size:9px;font-weight:800;letter-spacing:.2em;color:#FFD93D;text-transform:uppercase;margin-bottom:14px;">'+label+'</div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">'
+      +'<div><div style="font-size:26px;font-weight:900;color:#111;line-height:1;">'+seg+'</div><div style="font-size:9px;color:#aaa;margin-top:3px;text-transform:uppercase;letter-spacing:.08em;">'+segLabel+'</div></div>'
+      +'<div><div style="font-size:26px;font-weight:900;color:#111;line-height:1;">'+(eng !== '—' ? eng+'%' : '—')+'</div><div style="font-size:9px;color:#aaa;margin-top:3px;text-transform:uppercase;letter-spacing:.08em;">Engagement</div></div>'
+      +'<div><div style="font-size:26px;font-weight:900;color:#111;line-height:1;">'+alc+'</div><div style="font-size:9px;color:#aaa;margin-top:3px;text-transform:uppercase;letter-spacing:.08em;">Alcance mensual</div></div>'
+      +'<div><div style="font-size:26px;font-weight:900;color:#111;line-height:1;">'+views+'</div><div style="font-size:9px;color:#aaa;margin-top:3px;text-transform:uppercase;letter-spacing:.08em;">Reproducciones</div></div>'
+      +'</div></div>';
+  }
+
+  function barRow(label, val) {
+    if (!val || val === '—') return '';
+    return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">'
+      +'<span style="font-size:11px;color:#888;min-width:75px;">'+label+'</span>'
+      +'<div style="flex:1;height:6px;background:#f0f0f0;border-radius:3px;">'
+      +'<div style="width:'+val+'%;height:100%;background:#FFD93D;border-radius:3px;"></div></div>'
+      +'<span style="font-size:12px;font-weight:800;color:#111;min-width:36px;text-align:right;">'+val+'%</span>'
+      +'</div>';
+  }
+
+  var services = ['Contenido patrocinado|Integración natural en sketches y videos.',
+    'Reels & TikToks|Videos cortos para máximo alcance.',
+    'Stories & Lives|Interacción directa en tiempo real.',
+    'Campañas completas|Estrategia multi-plataforma.',
+    'Embajador de marca|Presencia continua y auténtica.',
+    'YouTube integrado|Videos de formato largo con alta retención.'];
+
+  var pdfHTML = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Media Kit Coka 2026</title>'
+    +'<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;800&display=swap" rel="stylesheet">'
+    +'<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"><\/script>'
+    +'<style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:DM Sans,Arial,sans-serif;background:#fff;color:#111;}</style>'
+    +'</head><body><div id="doc">'
+
+    // PORTADA
+    +'<div style="background:#0a0a0a;padding:40px 48px 32px;position:relative;overflow:hidden;">'
+    +'<div style="position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 180px 180px 0;border-color:transparent #FFD93D transparent transparent;"></div>'
+    +'<div style="position:absolute;top:16px;right:14px;font-size:9px;font-weight:800;color:#000;letter-spacing:.12em;">COMEDIA · SKETCHES · GT</div>'
+    +'<div style="display:flex;align-items:center;gap:24px;margin-bottom:20px;">'
+    +'<div style="width:85px;height:85px;border-radius:50%;border:3px solid #FFD93D;overflow:hidden;flex-shrink:0;background:#222;">'+photoHTML+'</div>'
+    +'<div><div style="font-family:Bebas Neue,sans-serif;font-size:72px;line-height:.88;color:#fff;letter-spacing:-.02em;">C<span style="background:#FFD93D;color:#000;padding:0 6px;">O</span>KA</div>'
+    +'<div style="font-size:11px;color:#555;margin-top:8px;font-family:monospace;letter-spacing:.05em;">Oscar Vinicio de León Ruíz</div></div></div>'
+    +'<div style="font-size:16px;color:rgba(255,255,255,.55);font-style:italic;margin-bottom:16px;">"Solo soy un loco haciéndolos reír."</div>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap;">'
+    +'<span style="background:#FFD93D;color:#000;font-size:9px;font-weight:800;padding:5px 12px;letter-spacing:.12em;text-transform:uppercase;">Comedia</span>'
+    +'<span style="background:#FFD93D;color:#000;font-size:9px;font-weight:800;padding:5px 12px;letter-spacing:.12em;text-transform:uppercase;">Sketches</span>'
+    +'<span style="border:1px solid #333;color:#555;font-size:9px;font-weight:700;padding:5px 12px;letter-spacing:.12em;text-transform:uppercase;">Entretenimiento</span>'
+    +'<span style="border:1px solid #333;color:#555;font-size:9px;font-weight:700;padding:5px 12px;letter-spacing:.12em;text-transform:uppercase;">Guatemala</span>'
+    +'</div></div>'
+
+    // BARRA
+    +'<div style="display:grid;grid-template-columns:repeat(4,1fr);background:#111;margin-bottom:32px;">'
+    +'<div style="padding:16px 20px;border-right:1px solid #222;"><div style="font-size:22px;font-weight:900;color:#FFD93D;line-height:1;">'+g('ig-seg')+'</div><div style="font-size:9px;color:#555;letter-spacing:.1em;margin-top:3px;font-family:monospace;text-transform:uppercase;">Instagram</div></div>'
+    +'<div style="padding:16px 20px;border-right:1px solid #222;"><div style="font-size:22px;font-weight:900;color:#FFD93D;line-height:1;">'+g('tt-seg')+'</div><div style="font-size:9px;color:#555;letter-spacing:.1em;margin-top:3px;font-family:monospace;text-transform:uppercase;">TikTok</div></div>'
+    +'<div style="padding:16px 20px;border-right:1px solid #222;"><div style="font-size:22px;font-weight:900;color:#FFD93D;line-height:1;">'+g('fb-seg')+'</div><div style="font-size:9px;color:#555;letter-spacing:.1em;margin-top:3px;font-family:monospace;text-transform:uppercase;">Facebook</div></div>'
+    +'<div style="padding:16px 20px;"><div style="font-size:22px;font-weight:900;color:#FFD93D;line-height:1;">'+g('yt-sub')+'</div><div style="font-size:9px;color:#555;letter-spacing:.1em;margin-top:3px;font-family:monospace;text-transform:uppercase;">YouTube</div></div>'
+    +'</div>'
+
+    // PRESENTACIÓN
+    +'<div style="padding:0 48px 28px;">'
+    +'<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">'
+    +'<span style="font-size:9px;font-weight:800;letter-spacing:.25em;color:#FFD93D;text-transform:uppercase;font-family:monospace;">01 / Presentación</span>'
+    +'<div style="flex:1;height:1px;background:#eee;"></div></div>'
+    +'<div style="border-left:4px solid #FFD93D;padding-left:18px;font-size:13px;color:#555;line-height:1.8;">Creador de contenido guatemalteco especializado en comedia y sketches. Con presencia en Instagram, TikTok, Facebook y YouTube, genero contenido auténtico que conecta con audiencias reales. Mi estilo natural y sin filtros ha construido una comunidad activa que interactúa, comparte y recomienda orgánicamente.</div>'
+    +'</div>'
+
+    // REDES
+    +'<div style="padding:0 48px 32px;">'
+    +'<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">'
+    +'<span style="font-size:9px;font-weight:800;letter-spacing:.25em;color:#FFD93D;text-transform:uppercase;font-family:monospace;">02 / Redes Sociales · Último mes</span>'
+    +'<div style="flex:1;height:1px;background:#eee;"></div></div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
+    + netCard('ig','Instagram','ig-seg','Seguidores')
+    + netCard('tt','TikTok','tt-seg','Seguidores')
+    + netCard('fb','Facebook','fb-seg','Seguidores')
+    + netCard('yt','YouTube','yt-sub','Suscriptores')
+    +'</div></div>'
+
+    // AUDIENCIA
+    +'<div style="padding:0 48px 32px;">'
+    +'<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">'
+    +'<span style="font-size:9px;font-weight:800;letter-spacing:.25em;color:#FFD93D;text-transform:uppercase;font-family:monospace;">03 / Perfil de Audiencia</span>'
+    +'<div style="flex:1;height:1px;background:#eee;"></div></div>'
+    +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">'
+    +'<div style="background:#fff;border:1px solid #eee;border-radius:8px;padding:18px;border-top:4px solid #FFD93D;">'
+    +'<div style="font-size:9px;font-weight:800;letter-spacing:.18em;color:#FFD93D;text-transform:uppercase;margin-bottom:14px;">Género</div>'
+    + barRow('Mujeres', localStorage.getItem('ck_b_f'))
+    + barRow('Hombres', localStorage.getItem('ck_b_m'))+'</div>'
+    +'<div style="background:#fff;border:1px solid #eee;border-radius:8px;padding:18px;border-top:4px solid #FFD93D;">'
+    +'<div style="font-size:9px;font-weight:800;letter-spacing:.18em;color:#FFD93D;text-transform:uppercase;margin-bottom:14px;">Edad</div>'
+    + barRow('18–24', localStorage.getItem('ck_b_18'))
+    + barRow('25–34', localStorage.getItem('ck_b_25'))
+    + barRow('35–44', localStorage.getItem('ck_b_35'))+'</div>'
+    +'<div style="background:#fff;border:1px solid #eee;border-radius:8px;padding:18px;border-top:4px solid #FFD93D;">'
+    +'<div style="font-size:9px;font-weight:800;letter-spacing:.18em;color:#FFD93D;text-transform:uppercase;margin-bottom:14px;">Ubicación</div>'
+    + barRow('Guatemala', localStorage.getItem('ck_b_gt'))
+    + barRow('México', localStorage.getItem('ck_b_mx'))
+    + barRow('USA', localStorage.getItem('ck_b_us'))+'</div>'
+    +'</div></div>'
+
+    // SERVICIOS
+    +'<div style="padding:0 48px 32px;">'
+    +'<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">'
+    +'<span style="font-size:9px;font-weight:800;letter-spacing:.25em;color:#FFD93D;text-transform:uppercase;font-family:monospace;">04 / Servicios para Marcas</span>'
+    +'<div style="flex:1;height:1px;background:#eee;"></div></div>'
+    +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">'
+    + services.map(function(s,i){
+        var p=s.split('|');
+        return '<div style="background:#f9f9f9;border-radius:6px;padding:14px;border-left:3px solid #FFD93D;">'
+          +'<div style="font-size:9px;color:#ccc;font-weight:700;margin-bottom:5px;font-family:monospace;">0'+(i+1)+'</div>'
+          +'<div style="font-size:13px;font-weight:800;color:#111;margin-bottom:3px;">'+p[0]+'</div>'
+          +'<div style="font-size:11px;color:#999;line-height:1.5;">'+p[1]+'</div></div>';
+      }).join('')
+    +'</div></div>'
+
+    // CONTACTO
+    +'<div style="background:#0a0a0a;padding:32px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">'
+    +'<div><div style="font-size:9px;font-weight:700;letter-spacing:.2em;color:#555;text-transform:uppercase;font-family:monospace;margin-bottom:8px;">¿Quieres trabajar con Coka?</div>'
+    +'<div style="font-family:Bebas Neue,sans-serif;font-size:44px;color:#FFD93D;line-height:.9;">Hablemos.</div>'
+    +'<div style="font-size:13px;color:#666;margin-top:8px;font-family:monospace;">odeleonruiz2712@gmail.com</div></div>'
+    +'<div style="font-size:10px;color:#333;font-family:monospace;letter-spacing:.05em;">© 2026 · Oscar Vinicio de León Ruíz</div>'
+    +'</div>'
+
+    +'</div>'
+    +'<script>window.onload=function(){html2pdf().set({margin:0,filename:"MediaKit-Coka-2026.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#fff",useCORS:true,logging:false},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:"avoid-all"}}).from(document.getElementById("doc")).save().then(function(){setTimeout(function(){window.close();},1500);});}<\/script>'
+    +'</body></html>';
+
+  var win = window.open('','_blank');
+  win.document.write(pdfHTML);
+  win.document.close();
+  setTimeout(function(){
+    btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:#0a0a0a;fill:none;stroke-width:2.5"><path d="M12 16l-4-4h3V4h2v8h3l-4 4z"/><path d="M4 18h16v2H4z"/></svg> Descargar Media Kit PDF';
+    btn.disabled = false;
+  }, 2000);
+}
+
+loadAll();
+</script>
+</body>
+</html>
