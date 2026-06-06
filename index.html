@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Kit – Coka</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root{
+  --y:#FFD93D;
+  --y2:#FFC107;
+  --b:#0a0a0a;
+  --b2:#111;
+  --b3:#1a1a1a;
+  --w:#f5f0e8;
+  --mut:#666;
+  --brd:rgba(255,255,255,0.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--b);color:var(--w);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+
+/* ── DIAGONAL BG SHAPES ── */
+.bg-shape{position:fixed;pointer-events:none;z-index:0;}
+.bg-shape-1{top:-120px;right:-80px;width:400px;height:400px;background:var(--y);opacity:.03;border-radius:50%;filter:blur(60px);}
+.bg-shape-2{bottom:10%;left:-100px;width:300px;height:300px;background:var(--y);opacity:.04;border-radius:50%;filter:blur(80px);}
+
+.page{position:relative;z-index:1;}
+
+/* ════════════════
+   PORTADA
+════════════════ */
+#portada{
+  min-height:100vh;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Diagonal accent top-right */
+#portada::before{
+  content:'';
+  position:absolute;
+  top:0;right:0;
+  width:0;height:0;
+  border-style:solid;
+  border-width:0 420px 200px 0;
+  border-color:transparent var(--y) transparent transparent;
+  opacity:.9;
+  z-index:0;
+}
+#portada::after{
+  content:'COKA';
+  position:absolute;
+  bottom:-30px;right:-20px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:280px;
+  color:rgba(255,211,61,.04);
+  line-height:1;
+  pointer-events:none;
+  z-index:0;
+  letter-spacing:-.02em;
+}
+
+.cover-top{
+  padding:32px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--brd);
+  position:relative;z-index:1;
+}
+.cover-top-left{font-family:'Space Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:.05em;}
+.tri-text{position:absolute;top:28px;right:80px;font-family:'Space Mono',monospace;font-size:10px;color:#000;font-weight:700;letter-spacing:.06em;text-align:right;line-height:1.9;z-index:2;pointer-events:none;}
+
+.cover-main{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:60px 40px;
+  position:relative;z-index:1;
+}
+
+.cover-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:.3em;
+  color:var(--y);
+  text-transform:uppercase;
+  margin-bottom:24px;
+  display:flex;align-items:center;gap:12px;
+}
+.cover-eyebrow::before{content:'';width:32px;height:1px;background:var(--y);}
+
+.cover-hero{
+  display:flex;
+  align-items:flex-end;
+  gap:28px;
+  flex-wrap:wrap;
+  margin-bottom:28px;
+}
+.brand-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(100px,20vw,180px);
+  line-height:.85;
+  letter-spacing:-.02em;
+  color:var(--w);
+  position:relative;
+}
+.brand-name .accent{
+  display:inline-block;
+  background:var(--y);
+  color:#000;font-weight:900;
+  padding:0 12px;
+  line-height:.95;
+}
+.avatar-wrap{
+  margin-bottom:8px;
+  flex-shrink:0;
+}
+.avatar-ring{
+  width:120px;height:120px;
+  border-radius:50%;
+  border:3px solid var(--y);
+  overflow:hidden;
+  background:var(--b3);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;position:relative;
+  box-shadow:0 0 0 6px rgba(255,211,61,.08);
+}
+.avatar-ring img{width:100%;height:100%;object-fit:cover;display:none;}
+.avatar-ring:hover .av-ov{opacity:1;}
+.av-ov{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:.2s;border-radius:50%;}
+.av-ov span{font-size:9px;font-weight:700;letter-spacing:.12em;color:var(--y);text-transform:uppercase;text-align:center;}
+.av-ph{font-family:'Bebas Neue',sans-serif;font-size:34px;color:#2a2a2a;}
+
+.cover-sub{
+  max-width:560px;
+}
+.tagline{
+  font-size:clamp(18px,3vw,24px);
+  color:rgba(245,240,232,.6);
+  line-height:1.5;
+  margin-bottom:16px;
+  font-style:italic;
+}
+.real-name{font-family:'Space Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:.08em;margin-bottom:24px;}
+
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.pill{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;border:1px solid var(--brd);border-radius:0;color:var(--mut);}
+.pill.on{background:var(--y);color:var(--b);border-color:var(--y);}
+
+.cover-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-pdf{
+  font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.2em;
+  padding:14px 28px;background:var(--y);color:var(--b);border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;transition:transform .15s,opacity .2s;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
+}
+.btn-pdf:hover{opacity:.88;transform:translateY(-1px);}
+.btn-pdf svg{width:14px;height:14px;stroke:var(--b);fill:none;stroke-width:2.5;}
+.btn-mail{
+  font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.2em;
+  padding:14px 28px;background:transparent;color:var(--w);
+  border:1px solid rgba(255,255,255,.15);cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,color .2s;
+}
+.btn-mail:hover{border-color:var(--y);color:var(--y);}
+
+.cover-stats-bar{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--brd);
+  position:relative;z-index:1;
+}
+.csb-item{
+  padding:24px 28px;
+  border-right:1px solid var(--brd);
+}
+.csb-item:last-child{border-right:none;}
+.csb-val{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--y);line-height:1;margin-bottom:4px;}
+.csb-lbl{font-size:10px;color:var(--mut);letter-spacing:.08em;font-family:'Space Mono',monospace;}
+@media(max-width:600px){
+  .cover-stats-bar{grid-template-columns:repeat(2,1fr);}
+  .csb-item:nth-child(2){border-right:none;}
+  .csb-item:nth-child(3){border-bottom:none;}
+  #portada::before{border-width:0 120px 120px 0;}
+  .cover-top,.cover-main{padding:24px 20px;}
+}
+
+/* ════════════════
+   LAYOUT GENERAL
+════════════════ */
+.section{padding:80px 40px;position:relative;}
+.section+.section{border-top:1px solid var(--brd);}
+@media(max-width:600px){.section{padding:60px 20px;}}
+
+.sec-head{
+  display:flex;align-items:baseline;gap:16px;
+  margin-bottom:48px;
+}
+.sec-num{
+  font-family:'Space Mono',monospace;
+  font-size:11px;color:var(--y);
+  letter-spacing:.1em;
+  flex-shrink:0;
+}
+.sec-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,6vw,56px);
+  color:var(--w);
+  letter-spacing:.01em;
+  line-height:1;
+}
+.sec-title .hl{color:var(--y);}
+.sec-line{flex:1;height:1px;background:var(--brd);}
+
+/* ════════════════
+   2. PRESENTACIÓN
+════════════════ */
+.bio-outer{
+  display:grid;
+  grid-template-columns:1fr 3fr;
+  gap:32px;
+  align-items:start;
+}
+@media(max-width:600px){.bio-outer{grid-template-columns:1fr;}}
+.bio-label-vert{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:11px;letter-spacing:.3em;
+  color:var(--mut);
+  writing-mode:vertical-rl;
+  text-transform:uppercase;
+  padding-top:4px;
+}
+.bio-content{}
+.bio-quote{
+  font-size:clamp(18px,2.5vw,22px);
+  line-height:1.65;
+  color:rgba(245,240,232,.75);
+  border-left:3px solid var(--y);
+  padding-left:24px;
+  margin-bottom:0;
+}
+
+/* ════════════════
+   3. REDES
+════════════════ */
+.redes-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:0;
+  border:1px solid var(--brd);
+}
+.red-card{
+  padding:32px 24px;
+  border-right:1px solid var(--brd);
+  border-bottom:1px solid var(--brd);
+  position:relative;overflow:hidden;
+  transition:background .25s;
+}
+.red-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:var(--y);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s ease;
+}
+.red-card:hover{background:var(--b3);}
+.red-card:hover::after{transform:scaleX(1);}
+.red-icon{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:20px;}
+.red-val{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:var(--w);letter-spacing:-.01em;}
+.red-lbl{font-size:11px;color:var(--mut);margin-top:6px;}
+.red-upd{font-size:8px;letter-spacing:.12em;color:#333;text-transform:uppercase;margin-top:12px;font-family:'Space Mono',monospace;}
+
+/* ════════════════
+   4. ESTADÍSTICAS
+════════════════ */
+.stats-split{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px;
+}
+@media(max-width:500px){.stats-split{grid-template-columns:1fr;}}
+.stat-big{
+  background:var(--y);
+  padding:40px 32px;
+  position:relative;overflow:hidden;
+}
+.stat-big::before{
+  content:attr(data-label);
+  position:absolute;bottom:-10px;right:10px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:80px;color:rgba(0,0,0,.08);
+  line-height:1;pointer-events:none;
+  letter-spacing:-.01em;
+}
+.stat-big .s-net{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:rgba(0,0,0,.45);margin-bottom:12px;text-transform:uppercase;}
+.stat-big .s-val{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--b);line-height:1;letter-spacing:-.01em;}
+.stat-big .s-lbl{font-size:12px;color:rgba(0,0,0,.55);margin-top:6px;font-weight:600;}
+.stat-dark{
+  background:var(--b3);
+  padding:40px 32px;
+}
+.stat-dark .s-net{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--mut);margin-bottom:12px;text-transform:uppercase;}
+.stat-dark .s-val{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--w);line-height:1;}
+.stat-dark .s-lbl{font-size:12px;color:var(--mut);margin-top:6px;}
+
+/* ════════════════
+   5. ENGAGEMENT
+════════════════ */
+.eng-wrap{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  border:1px solid var(--brd);
+}
+@media(max-width:500px){.eng-wrap{grid-template-columns:1fr;}}
+.eng-card{
+  padding:40px 24px;
+  border-right:1px solid var(--brd);
+  text-align:center;
+  position:relative;
+}
+.eng-card:last-child{border-right:none;}
+.eng-ring-wrap{width:100px;height:100px;margin:0 auto 20px;position:relative;}
+.eng-ring-wrap svg{transform:rotate(-90deg);}
+.eng-track{fill:none;stroke:rgba(255,255,255,.05);stroke-width:7;}
+.eng-fill{fill:none;stroke:var(--y);stroke-width:7;stroke-linecap:butt;transition:stroke-dashoffset .9s ease;}
+.eng-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.eng-num{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--w);}
+.eng-net{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--y);text-transform:uppercase;margin-bottom:6px;}
+.eng-sub{font-size:11px;color:var(--mut);}
+
+/* ════════════════
+   6. ALCANCE
+════════════════ */
+.alcance-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:2px;
+}
+.alc-card{
+  background:var(--b3);
+  padding:32px 24px;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%);
+  transition:background .2s;
+}
+.alc-card:hover{background:#222;}
+.alc-net{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--y);text-transform:uppercase;margin-bottom:16px;}
+.alc-val{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;color:var(--w);}
+.alc-lbl{font-size:11px;color:var(--mut);margin-top:6px;}
+
+/* ════════════════
+   7. AUDIENCIA
+════════════════ */
+.aud-wrap{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:2px;
+}
+.aud-panel{background:var(--b3);padding:32px 24px;}
+.aud-ttl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;color:var(--y);text-transform:uppercase;margin-bottom:24px;}
+.brow{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.blbl{font-size:12px;color:rgba(245,240,232,.5);min-width:72px;}
+.btrk{flex:1;height:5px;background:rgba(255,255,255,.05);border-radius:0;position:relative;}
+.bfll{height:100%;background:var(--y);transition:width .6s ease;}
+.bpct{font-size:12px;font-weight:600;color:var(--w);min-width:36px;text-align:right;font-family:'Space Mono',monospace;}
+
+/* ════════════════
+   8. SERVICIOS
+════════════════ */
+.srv-wrap{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:2px;
+}
+.srv-card{
+  background:var(--b3);
+  padding:32px 24px;
+  border-top:2px solid transparent;
+  transition:border-color .25s,background .25s;
+}
+.srv-card:hover{border-top-color:var(--y);background:#1e1e1e;}
+.srv-n{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--mut);margin-bottom:14px;}
+.srv-t{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--w);letter-spacing:.02em;margin-bottom:8px;}
+.srv-d{font-size:12px;color:var(--mut);line-height:1.65;}
+
+/* ════════════════
+   9. CONTACTO
+════════════════ */
+.contact-outer{
+  position:relative;
+  overflow:hidden;
+}
+.contact-outer::before{
+  content:'';
+  position:absolute;inset:0;
+  background:var(--y);
+  clip-path:polygon(0 0,100% 0,100% 75%,0 100%);
+  z-index:0;
+}
+.contact-inner{
+  position:relative;z-index:1;
+  padding:60px 40px 80px;
+}
+.contact-kicker{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.25em;color:rgba(0,0,0,.75);text-transform:uppercase;margin-bottom:12px;}
+.contact-heading{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,9vw,96px);color:var(--b);line-height:.9;margin-bottom:16px;white-space:nowrap;}
+.contact-email-lnk{font-size:16px;color:rgba(0,0,0,.85);font-weight:600;margin-bottom:32px;display:block;}
+.contact-cta{
+  font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.2em;
+  padding:16px 32px;background:var(--b);color:var(--y);
+  border:none;cursor:pointer;text-decoration:none;display:inline-block;
+  transition:opacity .2s;clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
+}
+.contact-cta:hover{opacity:.82;}
+
+footer{
+  padding:28px 40px;
+  border-top:1px solid var(--brd);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+}
+.ft-l,.ft-r{font-family:'Space Mono',monospace;font-size:10px;color:#2e2e2e;letter-spacing:.05em;}
+@media(max-width:600px){footer{padding:24px 20px;}.contact-inner{padding:40px 20px 60px;}}
+
+/* ════════════════
+   ADMIN
+════════════════ */
+#adm-btn{
+  position:fixed;bottom:24px;right:24px;width:42px;height:42px;
+  background:var(--b3);border:1px solid var(--brd);border-radius:0;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  z-index:100;opacity:.1;transition:opacity .3s;
+}
+#adm-btn:hover{opacity:1;}
+#adm-btn svg{width:16px;height:16px;stroke:var(--mut);fill:none;stroke-width:2;}
+
+#adm-panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+#adm-panel.open{display:flex;}
+.adm-box{background:#0d0d0d;border:1px solid rgba(255,255,255,.1);padding:32px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;}
+.adm-box h2{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.1em;color:var(--y);margin-bottom:6px;}
+.adm-box>p{font-size:12px;color:var(--mut);margin-bottom:24px;font-family:'Space Mono',monospace;}
+.af-sec{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#3a3a3a;margin:22px 0 10px;padding-bottom:7px;border-bottom:1px solid var(--brd);}
+.af{margin-bottom:12px;}
+.af label{display:block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);margin-bottom:5px;}
+.af input[type=text],.af input[type=password]{width:100%;background:#1a1a1a;border:1px solid var(--brd);color:var(--w);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 12px;outline:none;transition:border-color .2s;border-radius:0;}
+.af input:focus{border-color:var(--y);}
+.photo-zone{display:flex;align-items:center;gap:14px;background:#1a1a1a;border:1px dashed #2a2a2a;padding:14px;cursor:pointer;transition:border-color .2s;}
+.photo-zone:hover{border-color:var(--y);}
+.mini-av{width:56px;height:56px;border-radius:50%;border:2px solid var(--y);overflow:hidden;background:#222;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mini-av img{width:100%;height:100%;object-fit:cover;display:none;}
+.mini-ph{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#2a2a2a;}
+.ph-hint p{font-size:13px;color:var(--w);margin-bottom:2px;}
+.ph-hint span{font-size:11px;color:var(--mut);}
+input[type=file]{display:none;}
+.adm-acts{display:flex;gap:10px;margin-top:24px;}
+.a-save{flex:1;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.12em;padding:13px;background:var(--y);color:var(--b);border:none;cursor:pointer;}
+.a-save:hover{opacity:.9;}
+.a-cancel{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.12em;padding:13px 20px;background:transparent;color:var(--mut);border:1px solid var(--brd);cursor:pointer;}
+#pw-err{color:#e55;font-size:11px;margin-top:8px;display:none;font-family:'Space Mono',monospace;}
+
+/* ── PRINT ── */
+@media print{
+  #adm-btn,#adm-panel,.cover-actions,.bg-shape{display:none!important;}
+  body{background:#fff!important;color:#111!important;}
+  #portada::after,#portada::before{display:none!important;}
+  .brand-name,.brand-name .accent,.contact-heading{color:#111!important;}
+  .accent{background:#FFD93D!important;color:#0a0a0a!important;}
+  .red-card,.stat-dark,.alc-card,.aud-panel,.srv-card,.eng-card{background:#f5f5f5!important;}
+  .stat-big{background:#FFD93D!important;}
+  .contact-outer::before{background:#FFD93D!important;}
+  .sec-title,.red-val,.stat-big .s-val,.stat-dark .s-val,.alc-val,.eng-num{color:#111!important;}
+  footer{border-color:#ddd!important;}
+  .ft-l,.ft-r{color:#aaa!important;}
+}
+@keyframes fu{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.section,.cover-main,.cover-stats-bar{animation:fu .55s ease both;}
+
+/* ════════════════ QUOTE MODAL ════════════════ */
+#quote-panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:300;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 16px;backdrop-filter:blur(6px);}
+#quote-panel.open{display:flex;}
+.qt-box{background:#0d0d0d;border:1px solid rgba(255,255,255,.1);padding:32px;width:100%;max-width:600px;margin:auto;}
+.qt-box h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.1em;color:var(--y);margin-bottom:4px;}
+.qt-box>p{font-size:11px;color:var(--mut);margin-bottom:28px;font-family:'Space Mono',monospace;}
+.qt-sec{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--y);margin:24px 0 12px;padding-bottom:7px;border-bottom:1px solid rgba(255,211,61,.2);}
+.qt-f{margin-bottom:12px;}
+.qt-f label{display:block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:5px;}
+.qt-f input{width:100%;background:#1a1a1a;border:1px solid var(--brd);color:var(--w);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 12px;outline:none;transition:border-color .2s;}
+.qt-f input:focus{border-color:var(--y);}
+.srv-row{display:grid;grid-template-columns:2fr 1fr 1fr 80px;gap:8px;align-items:center;margin-bottom:10px;}
+.srv-row input{background:#1a1a1a;border:1px solid var(--brd);color:var(--w);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;outline:none;width:100%;}
+.srv-row input:focus{border-color:var(--y);}
+.srv-row .sub{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--y);text-align:right;padding-right:4px;}
+.srv-hdr{display:grid;grid-template-columns:2fr 1fr 1fr 80px;gap:8px;margin-bottom:6px;}
+.srv-hdr span{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:#444;}
+.qt-total{background:#1a1a1a;border:1px solid rgba(255,211,61,.3);padding:20px 20px;margin-top:24px;display:flex;justify-content:space-between;align-items:center;}
+.qt-total-lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);}
+.qt-total-val{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--y);letter-spacing:-.01em;}
+.qt-currency{font-size:14px;color:var(--mut);margin-left:4px;font-family:'Space Mono',monospace;}
+.qt-note{margin-top:10px;}
+.qt-note textarea{width:100%;background:#1a1a1a;border:1px solid var(--brd);color:var(--w);font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 12px;outline:none;resize:vertical;min-height:70px;transition:border-color .2s;}
+.qt-note textarea:focus{border-color:var(--y);}
+.qt-acts{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.qt-acts button{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.12em;padding:13px 22px;cursor:pointer;border:none;}
+.btn-gen-pdf{background:var(--y);color:var(--b);flex:1;}
+.btn-gen-pdf:hover{opacity:.9;}
+.btn-qt-close{background:transparent;color:var(--mut);border:1px solid var(--brd) !important;}
+
+/* ════════════════ CONTACT FORM ════════════════ */
+#solicitud{padding:80px 40px;border-top:1px solid var(--brd);}
+@media(max-width:600px){#solicitud{padding:60px 20px;}}
+.form-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:560px){.form-wrap{grid-template-columns:1fr;}}
+.ff{display:flex;flex-direction:column;gap:5px;}
+.ff.full{grid-column:1/-1;}
+.ff label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);}
+.ff input,.ff textarea,.ff select{background:#1a1a1a;border:1px solid var(--brd);color:var(--w);font-family:'DM Sans',sans-serif;font-size:14px;padding:12px 14px;outline:none;transition:border-color .2s;width:100%;border-radius:0;}
+.ff input:focus,.ff textarea:focus,.ff select:focus{border-color:var(--y);}
+.ff textarea{resize:vertical;min-height:100px;}
+.ff select option{background:#1a1a1a;}
+.form-check{display:flex;align-items:center;gap:10px;grid-column:1/-1;margin-top:4px;}
+.form-check input[type=checkbox]{width:16px;height:16px;accent-color:var(--y);flex-shrink:0;}
+.form-check label{font-size:12px;color:var(--mut);letter-spacing:0;}
+.btn-submit{grid-column:1/-1;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.2em;padding:15px 32px;background:var(--y);color:var(--b);border:none;cursor:pointer;transition:opacity .2s;clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);margin-top:8px;}
+.btn-submit:hover{opacity:.88;}
+.btn-submit:disabled{opacity:.4;cursor:not-allowed;}
+.form-msg{grid-column:1/-1;font-family:'Space Mono',monospace;font-size:11px;padding:12px 16px;display:none;margin-top:4px;}
+.form-msg.ok{background:rgba(255,211,61,.08);border:1px solid rgba(255,211,61,.3);color:var(--y);}
+.form-msg.err{background:rgba(220,50,50,.08);border:1px solid rgba(220,50,50,.3);color:#e55;}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init("IP4BAJOAMbB-rP8uQ");</script>
+</head>
+<body>
+
+<div class="bg-shape bg-shape-1"></div>
+<div class="bg-shape bg-shape-2"></div>
+
+<div class="page">
+
+<!-- ══ PORTADA ══ -->
+<section id="portada"><div class="tri-text">COMEDIA · SKETCHES · GT</div>
+  <div class="cover-top">
+    <span class="cover-top-left">MEDIA KIT — 2026</span>
+    
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-eyebrow">Creador de contenido</div>
+    <div class="cover-hero">
+      <div class="avatar-wrap">
+        <div class="avatar-ring" id="avatar-ring" onclick="document.getElementById('photo-input').click()">
+          <span class="av-ph" id="av-ph">CK</span>
+          <img id="av-img" src="" alt="Coka">
+          <div class="av-ov"><span>Cambiar foto</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="brand-name">C<span class="accent">O</span>KA</div>
+      </div>
+    </div>
+    <div class="cover-sub">
+      <p class="tagline">"Solo soy un loco haciéndolos reír."</p>
+      <p class="real-name">Oscar Vinicio de León Ruíz</p>
+      <div class="pills">
+        <span class="pill on">Comedia</span>
+        <span class="pill on">Sketches</span>
+        <span class="pill">Entretenimiento</span>
+        <span class="pill">Guatemala 🇬🇹</span>
+      </div>
+      <div class="cover-actions">
+        <button class="btn-pdf" onclick="dlPDF()">
+          <svg viewBox="0 0 24 24"><path d="M12 16l-4-4h3V4h2v8h3l-4 4z"/><path d="M4 18h16v2H4z"/></svg>
+          Descargar Media Kit PDF
+        </button>
+        <a href="mailto:odeleonruiz2712@gmail.com" class="btn-mail">Contactar</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-stats-bar">
+    <div class="csb-item"><div class="csb-val" id="csb-ig">—</div><div class="csb-lbl">Instagram</div></div>
+    <div class="csb-item"><div class="csb-val" id="csb-tt">—</div><div class="csb-lbl">TikTok</div></div>
+    <div class="csb-item"><div class="csb-val" id="csb-fb">—</div><div class="csb-lbl">Facebook</div></div>
+    <div class="csb-item"><div class="csb-val" id="csb-yt">—</div><div class="csb-lbl">YouTube</div></div>
+  </div>
+</section>
+
+<!-- ══ 2. PRESENTACIÓN ══ -->
+<section class="section" id="presentacion">
+  <div class="sec-head">
+    <span class="sec-num">01 /</span>
+    <h2 class="sec-title">Presenta<span class="hl">ción</span></h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="bio-outer">
+    <div class="bio-label-vert">Bio</div>
+    <blockquote class="bio-quote" id="bio-txt">Creador de contenido guatemalteco especializado en comedia y sketches. Con presencia en Instagram, TikTok, Facebook y YouTube, genero contenido auténtico que conecta con audiencias reales. Mi estilo natural y sin filtros ha construido una comunidad activa que interactúa, comparte y recomienda orgánicamente.</blockquote>
+  </div>
+</section>
+
+<!-- ══ 3. REDES ══ -->
+<section class="section" id="redes">
+  <div class="sec-head">
+    <span class="sec-num">02 /</span>
+    <h2 class="sec-title">Redes <span class="hl">Sociales</span></h2>
+    <span class="sec-line"></span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;">
+
+    <!-- INSTAGRAM -->
+    <div style="background:var(--b3);padding:28px 24px;border-top:3px solid var(--y);position:relative;overflow:hidden;">
+      <div style="position:absolute;bottom:-20px;right:-10px;font-family:'Bebas Neue',sans-serif;font-size:90px;color:rgba(255,211,61,.04);line-height:1;pointer-events:none;">IG</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--y)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="var(--y)" stroke="none"/></svg>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;color:var(--y);text-transform:uppercase;">Instagram</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="ig-seg">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Seguidores</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="ig-engagement">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Engagement %</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="ig-alcance">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Alcance mensual</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="ig-views">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Reproducciones</div></div>
+      </div>
+    </div>
+
+    <!-- TIKTOK -->
+    <div style="background:var(--b3);padding:28px 24px;border-top:3px solid var(--y);position:relative;overflow:hidden;">
+      <div style="position:absolute;bottom:-20px;right:-10px;font-family:'Bebas Neue',sans-serif;font-size:90px;color:rgba(255,211,61,.04);line-height:1;pointer-events:none;">TT</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--y)" stroke="none"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;color:var(--y);text-transform:uppercase;">TikTok</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="tt-seg">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Seguidores</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="tt-eng">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Engagement %</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="tt-imp">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Alcance mensual</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="tt-views">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Reproducciones</div></div>
+      </div>
+    </div>
+
+    <!-- FACEBOOK -->
+    <div style="background:var(--b3);padding:28px 24px;border-top:3px solid var(--y);position:relative;overflow:hidden;">
+      <div style="position:absolute;bottom:-20px;right:-10px;font-family:'Bebas Neue',sans-serif;font-size:90px;color:rgba(255,211,61,.04);line-height:1;pointer-events:none;">FB</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--y)" stroke="none"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.95 0-1.95.93-1.95 1.88v2.27h3.32l-.53 3.49h-2.79V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;color:var(--y);text-transform:uppercase;">Facebook</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="fb-seg">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Seguidores</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="fb-eng">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Engagement %</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="fb-imp">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Alcance mensual</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="fb-views">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Reproducciones</div></div>
+      </div>
+    </div>
+
+    <!-- YOUTUBE -->
+    <div style="background:var(--b3);padding:28px 24px;border-top:3px solid var(--y);position:relative;overflow:hidden;">
+      <div style="position:absolute;bottom:-20px;right:-10px;font-family:'Bebas Neue',sans-serif;font-size:90px;color:rgba(255,211,61,.04);line-height:1;pointer-events:none;">YT</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--y)" stroke="none"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 0 0 2.12 2.14C4.46 20.5 12 20.5 12 20.5s7.54 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.52V8.48L15.5 12l-5.75 3.52z"/></svg>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;color:var(--y);text-transform:uppercase;">YouTube</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="yt-sub">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Suscriptores</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="yt-eng">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Engagement %</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="yt-imp">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Alcance mensual</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);line-height:1;" id="yt-views">—</div><div style="font-size:10px;color:var(--mut);margin-top:4px;">Reproducciones</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ 7. AUDIENCIA ══ -->
+<section class="section" id="audiencia">
+  <div class="sec-head">
+    <span class="sec-num">03 /</span>
+    <h2 class="sec-title">Perfil de <span class="hl">Audiencia</span></h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="aud-wrap">
+    <div class="aud-panel">
+      <div class="aud-ttl">Género</div>
+      <div class="brow"><span class="blbl">Mujeres</span><div class="btrk"><div class="bfll" id="bf-f" style="width:50%"></div></div><span class="bpct" id="bp-f">—</span></div>
+      <div class="brow"><span class="blbl">Hombres</span><div class="btrk"><div class="bfll" id="bf-m" style="width:50%;opacity:.45"></div></div><span class="bpct" id="bp-m">—</span></div>
+    </div>
+    <div class="aud-panel">
+      <div class="aud-ttl">Edad</div>
+      <div class="brow"><span class="blbl">18 – 24</span><div class="btrk"><div class="bfll" id="bf-18" style="width:33%"></div></div><span class="bpct" id="bp-18">—</span></div>
+      <div class="brow"><span class="blbl">25 – 34</span><div class="btrk"><div class="bfll" id="bf-25" style="width:33%;opacity:.6"></div></div><span class="bpct" id="bp-25">—</span></div>
+      <div class="brow"><span class="blbl">35 – 44</span><div class="btrk"><div class="bfll" id="bf-35" style="width:33%;opacity:.35"></div></div><span class="bpct" id="bp-35">—</span></div>
+    </div>
+    <div class="aud-panel">
+      <div class="aud-ttl">Ubicación</div>
+      <div class="brow"><span class="blbl">Guatemala</span><div class="btrk"><div class="bfll" id="bf-gt" style="width:70%"></div></div><span class="bpct" id="bp-gt">—</span></div>
+      <div class="brow"><span class="blbl">México</span><div class="btrk"><div class="bfll" id="bf-mx" style="width:15%;opacity:.55"></div></div><span class="bpct" id="bp-mx">—</span></div>
+      <div class="brow"><span class="blbl">USA</span><div class="btrk"><div class="bfll" id="bf-us" style="width:10%;opacity:.35"></div></div><span class="bpct" id="bp-us">—</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 8. SERVICIOS ══ -->
+<section class="section" id="servicios">
+  <div class="sec-head">
+    <span class="sec-num">04 /</span>
+    <h2 class="sec-title">Servicios para <span class="hl">Marcas</span></h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="srv-wrap">
+    <div class="srv-card"><div class="srv-n">01</div><div class="srv-t">Contenido patrocinado</div><div class="srv-d">Integración natural de tu marca en sketches y videos de comedia.</div></div>
+    <div class="srv-card"><div class="srv-n">02</div><div class="srv-t">Reels & TikToks</div><div class="srv-d">Videos cortos optimizados para máximo alcance y viralidad.</div></div>
+    <div class="srv-card"><div class="srv-n">03</div><div class="srv-t">Stories & Lives</div><div class="srv-d">Menciones en tiempo real con alta interacción directa.</div></div>
+    <div class="srv-card"><div class="srv-n">04</div><div class="srv-t">Campañas completas</div><div class="srv-d">Estrategia multi-plataforma para tu marca.</div></div>
+    <div class="srv-card"><div class="srv-n">05</div><div class="srv-t">Embajador de marca</div><div class="srv-d">Presencia continua y auténtica como vocero de tu producto.</div></div>
+    <div class="srv-card"><div class="srv-n">06</div><div class="srv-t">YouTube integrado</div><div class="srv-d">Aparición en videos de formato largo con alta retención.</div></div>
+  </div>
+</section>
+
+<!-- ══ 9. CONTACTO ══ -->
+<section class="section" id="contacto" style="padding:0;border-top:1px solid var(--brd);">
+  <div class="contact-outer">
+    <div class="contact-inner">
+      <div class="contact-kicker">¿Quieres trabajar con Coka?</div>
+      <div class="contact-heading">Hablemos.</div>
+      <a class="contact-email-lnk" href="mailto:odeleonruiz2712@gmail.com">odeleonruiz2712@gmail.com</a>
+      <a href="mailto:odeleonruiz2712@gmail.com" class="contact-cta">Escribir ahora</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ SOLICITUD DE COTIZACIÓN ══ -->
+<section class="section" id="solicitud">
+  <div class="sec-head">
+    <span class="sec-num">05 /</span>
+    <h2 class="sec-title">Solicitar <span class="hl">Cotización</span></h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="form-wrap">
+    <div class="ff">
+      <label>Nombre completo *</label>
+      <input type="text" id="f-name" placeholder="Tu nombre" required>
+    </div>
+    <div class="ff">
+      <label>Correo electrónico *</label>
+      <input type="email" id="f-email" placeholder="tu@correo.com" required>
+    </div>
+    <div class="ff">
+      <label>Empresa o marca</label>
+      <input type="text" id="f-company" placeholder="Nombre de tu empresa">
+    </div>
+    <div class="ff">
+      <label>Servicios de interés</label>
+      <select id="f-services">
+        <option value="">Selecciona un servicio</option>
+        <option value="TikToks">TikToks</option>
+        <option value="YouTube Shorts">YouTube Shorts</option>
+        <option value="Videos largos YouTube">Videos largos YouTube</option>
+        <option value="Reels Instagram">Reels Instagram</option>
+        <option value="Reels Facebook">Reels Facebook</option>
+        <option value="Stories">Stories</option>
+        <option value="Lives">Lives</option>
+        <option value="Campaña completa">Campaña completa multi-plataforma</option>
+        <option value="Embajador de marca">Embajador de marca</option>
+      </select>
+    </div>
+    <div class="ff full">
+      <label>Mensaje</label>
+      <textarea id="f-message" placeholder="Cuéntame sobre tu proyecto, presupuesto aproximado o cualquier detalle importante..."></textarea>
+    </div>
+    <div class="form-check">
+      <input type="checkbox" id="f-consent">
+      <label for="f-consent">Acepto que Coka use mi información para responder a esta solicitud.</label>
+    </div>
+    <button class="btn-submit" onclick="enviarSolicitud()">Enviar solicitud de cotización</button>
+    <div class="form-msg" id="form-msg"></div>
+  </div>
+</section>
+<footer>
+  <span class="ft-l">© 2026 COKA · Oscar Vinicio de León Ruíz</span>
+  <span class="ft-r" id="upd-txt"></span>
+</footer>
+
+</div><!-- /page -->
+
+<input type="file" id="photo-input" accept="image/*" onchange="handlePhoto(event)">
+
+<button id="adm-btn" onclick="openAdm()">
+  <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6 20v-1a6 6 0 0 1 12 0v1"/></svg>
+</button>
+
+<div id="adm-panel">
+  <div class="adm-box">
+    <div id="pw-scr">
+      <h2>Panel Admin</h2>
+      <p>// acceso restringido</p>
+      <div class="af"><label>Contraseña</label><input type="password" id="pw-in" placeholder="••••••••" onkeydown="if(event.key==='Enter')chkPw()"></div>
+      <div id="pw-err">// contraseña incorrecta</div>
+      <div class="adm-acts"><button class="a-save" onclick="chkPw()">Entrar</button><button class="a-cancel" onclick="closeAdm()">Cancelar</button></div>
+    </div>
+    <div id="ed-scr" style="display:none">
+      <h2>Actualizar</h2>
+      <p>// los cambios se guardan localmente</p>
+
+      <div class="af-sec">Foto de perfil</div>
+      <div class="af"><label>Tu foto circular</label>
+        <div class="photo-zone" onclick="document.getElementById('photo-input').click()">
+          <div class="mini-av" id="mini-av"><span class="mini-ph" id="mini-ph">CK</span><img id="mini-img" src="" alt=""></div>
+          <div class="ph-hint"><p>Subir foto</p><span>JPG o PNG cuadrada</span></div>
+        </div>
+      </div>
+
+      <div class="af-sec">Instagram</div>
+      <div class="af"><label>Seguidores</label><input type="text" id="ai-ig-seg" placeholder="ej: 48.2K"></div>
+      <div class="af"><label>Engagement %</label><input type="text" id="ai-ig-engagement" placeholder="ej: 6.8"></div>
+      <div class="af"><label>Alcance mensual</label><input type="text" id="ai-ig-alcance" placeholder="ej: 85K"></div>
+      <div class="af"><label>Reproducciones</label><input type="text" id="ai-ig-views" placeholder="ej: 320K"></div>
+
+      <div class="af-sec">TikTok</div>
+      <div class="af"><label>Seguidores</label><input type="text" id="ai-tt-seg" placeholder="ej: 112K"></div>
+      <div class="af"><label>Engagement %</label><input type="text" id="ai-tt-eng" placeholder="ej: 9.2"></div>
+      <div class="af"><label>Alcance mensual</label><input type="text" id="ai-tt-imp" placeholder="ej: 500K"></div>
+      <div class="af"><label>Reproducciones</label><input type="text" id="ai-tt-views" placeholder="ej: 1.2M"></div>
+
+      <div class="af-sec">Facebook</div>
+      <div class="af"><label>Seguidores</label><input type="text" id="ai-fb-seg" placeholder="ej: 35K"></div>
+      <div class="af"><label>Engagement %</label><input type="text" id="ai-fb-eng" placeholder="ej: 4.5"></div>
+      <div class="af"><label>Alcance mensual</label><input type="text" id="ai-fb-imp" placeholder="ej: 90K"></div>
+      <div class="af"><label>Reproducciones</label><input type="text" id="ai-fb-views" placeholder="ej: 120K"></div>
+
+      <div class="af-sec">YouTube</div>
+      <div class="af"><label>Suscriptores</label><input type="text" id="ai-yt-sub" placeholder="ej: 22.5K"></div>
+      <div class="af"><label>Engagement %</label><input type="text" id="ai-yt-eng" placeholder="ej: 5.5"></div>
+      <div class="af"><label>Alcance mensual</label><input type="text" id="ai-yt-imp" placeholder="ej: 150K"></div>
+      <div class="af"><label>Reproducciones</label><input type="text" id="ai-yt-views" placeholder="ej: 1.4M"></div>
+
+      <div class="af-sec">Otros</div>
+
+      <div class="af-sec">Estadísticas</div>
+      <div class="af"><label>TikTok likes totales</label><input type="text" id="ai-tt-likes" placeholder="ej: 2.1M"></div>
+      <div class="af"><label>YouTube vistas totales</label><input type="text" id="ai-yt-views" placeholder="ej: 1.4M"></div>
+      <div class="af"><label>Instagram alcance semanal</label><input type="text" id="ai-ig-alcance" placeholder="ej: 85K"></div>
+      <div class="af"><label>Promedio vistas / video</label><input type="text" id="ai-avg-views" placeholder="ej: 18K"></div>
+
+      <div class="af-sec">Engagement — Instagram (último mes)</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#555;letter-spacing:.1em;margin-bottom:12px;">El % se calcula automático con estos datos.</div>
+      <div class="af"><label>Likes</label><input type="number" id="ai-ig-likes" placeholder="ej: 3200" oninput="calcEng('ig')"></div>
+      <div class="af"><label>Comentarios</label><input type="number" id="ai-ig-comments" placeholder="ej: 180" oninput="calcEng('ig')"></div>
+      <div class="af"><label>Compartidos</label><input type="number" id="ai-ig-shares" placeholder="ej: 95" oninput="calcEng('ig')"></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--y);padding:8px 12px;background:#1a1a1a;margin-bottom:4px;">Engagement calculado: <span id="ai-ig-eng-result">—</span></div>
+
+      <div class="af-sec">Engagement — TikTok (último mes)</div>
+      <div class="af"><label>Likes</label><input type="number" id="ai-tt-likes-e" placeholder="ej: 8500" oninput="calcEng('tt')"></div>
+      <div class="af"><label>Comentarios</label><input type="number" id="ai-tt-comments" placeholder="ej: 320" oninput="calcEng('tt')"></div>
+      <div class="af"><label>Compartidos</label><input type="number" id="ai-tt-shares" placeholder="ej: 210" oninput="calcEng('tt')"></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--y);padding:8px 12px;background:#1a1a1a;margin-bottom:4px;">Engagement calculado: <span id="ai-tt-eng-result">—</span></div>
+
+      <div class="af-sec">Engagement — Facebook (último mes)</div>
+      <div class="af"><label>Likes / Reacciones</label><input type="number" id="ai-fb-likes-e" placeholder="ej: 1200" oninput="calcEng('fb')"></div>
+      <div class="af"><label>Comentarios</label><input type="number" id="ai-fb-comments" placeholder="ej: 85" oninput="calcEng('fb')"></div>
+      <div class="af"><label>Compartidos</label><input type="number" id="ai-fb-shares" placeholder="ej: 60" oninput="calcEng('fb')"></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--y);padding:8px 12px;background:#1a1a1a;margin-bottom:4px;">Engagement calculado: <span id="ai-fb-eng-result">—</span></div>
+
+      <div class="af-sec">Engagement — YouTube (último mes)</div>
+      <div class="af"><label>Likes</label><input type="number" id="ai-yt-likes-e" placeholder="ej: 950" oninput="calcEng('yt')"></div>
+      <div class="af"><label>Comentarios</label><input type="number" id="ai-yt-comments" placeholder="ej: 120" oninput="calcEng('yt')"></div>
+      <div class="af"><label>Compartidos</label><input type="number" id="ai-yt-shares" placeholder="ej: 45" oninput="calcEng('yt')"></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--y);padding:8px 12px;background:#1a1a1a;margin-bottom:4px;">Engagement calculado: <span id="ai-yt-eng-result">—</span></div>
+
+      <div class="af-sec">Alcance e impresiones / mes</div>
+      <div class="af"><label>Instagram</label><input type="text" id="ai-ig-imp" placeholder="ej: 320K"></div>
+      <div class="af"><label>TikTok</label><input type="text" id="ai-tt-imp" placeholder="ej: 1.2M"></div>
+      <div class="af"><label>Facebook</label><input type="text" id="ai-fb-imp" placeholder="ej: 90K"></div>
+      <div class="af"><label>YouTube</label><input type="text" id="ai-yt-imp" placeholder="ej: 150K"></div>
+
+      <div class="af-sec">Audiencia género (%)</div>
+      <div class="af"><label>Mujeres</label><input type="text" id="ai-f" placeholder="ej: 60"></div>
+      <div class="af"><label>Hombres</label><input type="text" id="ai-m" placeholder="ej: 40"></div>
+
+      <div class="af-sec">Audiencia edad (%)</div>
+      <div class="af"><label>18–24</label><input type="text" id="ai-18" placeholder="ej: 38"></div>
+      <div class="af"><label>25–34</label><input type="text" id="ai-25" placeholder="ej: 42"></div>
+      <div class="af"><label>35–44</label><input type="text" id="ai-35" placeholder="ej: 20"></div>
+
+      <div class="af-sec">Audiencia ubicación (%)</div>
+      <div class="af"><label>Guatemala</label><input type="text" id="ai-gt" placeholder="ej: 70"></div>
+      <div class="af"><label>México</label><input type="text" id="ai-mx" placeholder="ej: 15"></div>
+      <div class="af"><label>USA</label><input type="text" id="ai-us" placeholder="ej: 10"></div>
+
+      <div class="adm-acts"><button class="a-save" onclick="saveAll()">Guardar stats</button><button class="a-cancel" onclick="closeAdm()">Cerrar</button></div>
+      <div style="margin-top:10px"><button class="a-save" style="width:100%;background:#222;color:var(--y);border:1px solid var(--y);" onclick="closeAdm();openQuote()">✦ Generar Cotización</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PW='coka2026';
+const CIRC=263.9;
+
+const TKEYS=[
+  'ig-seg','ig-engagement','ig-alcance','ig-views',
+  'tt-seg','tt-eng','tt-imp','tt-views',
+  'fb-seg','fb-eng','fb-imp','fb-views',
+  'yt-sub','yt-eng','yt-imp','yt-views',
+  'avg-views','tt-likes'
+];
+const EKEYS=[];
+const BKEYS=['f','m','18','25','35','gt','mx','us'];
+
+function o2p(pct){return CIRC-(Math.min(pct,100)/100)*CIRC;}
+
+function loadAll(){
+  // Mirror engagement to redes cards
+// engagement handled by EKEYS
+TKEYS.forEach(k=>{
+    const v=localStorage.getItem('ck_'+k);
+    if(!v)return;
+    const el=document.getElementById(k);
+    if(el)el.textContent=v;
+    // mirror to cover bar
+    const csb={
+      'ig-seg':'csb-ig','tt-seg':'csb-tt',
+      'fb-seg':'csb-fb','yt-sub':'csb-yt'
+    };
+    if(csb[k]){const ce=document.getElementById(csb[k]);if(ce)ce.textContent=v;}
+  });
+
+  BKEYS.forEach(k=>{
+    const v=localStorage.getItem('ck_b_'+k);
+    if(!v)return;
+    const bf=document.getElementById('bf-'+k);
+    const bp=document.getElementById('bp-'+k);
+    if(bf)bf.style.width=v+'%';
+    if(bp)bp.textContent=v+'%';
+  });
+  const ph=localStorage.getItem('ck_photo');
+  if(ph)applyPhoto(ph);
+  const d=localStorage.getItem('ck_upd');
+  if(d)document.getElementById('upd-txt').textContent='actualizado: '+d;
+}
+
+function applyPhoto(src){
+  const img=document.getElementById('av-img');
+  const ph=document.getElementById('av-ph');
+  if(img){img.src=src;img.style.display='block';}
+  if(ph)ph.style.display='none';
+  const mi=document.getElementById('mini-img');
+  const mp=document.getElementById('mini-ph');
+  if(mi){mi.src=src;mi.style.display='block';}
+  if(mp)mp.style.display='none';
+}
+
+function handlePhoto(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{localStorage.setItem('ck_photo',ev.target.result);applyPhoto(ev.target.result);};
+  r.readAsDataURL(f);
+}
+
+function openAdm(){
+  document.getElementById('pw-scr').style.display='';
+  document.getElementById('ed-scr').style.display='none';
+  document.getElementById('pw-in').value='';
+  document.getElementById('pw-err').style.display='none';
+  document.getElementById('adm-panel').classList.add('open');
+  setTimeout(()=>document.getElementById('pw-in').focus(),100);
+}
+function closeAdm(){document.getElementById('adm-panel').classList.remove('open');}
+document.getElementById('adm-panel').addEventListener('click',e=>{if(e.target===document.getElementById('adm-panel'))closeAdm();});
+
+function chkPw(){
+  if(document.getElementById('pw-in').value===PW){
+    document.getElementById('pw-scr').style.display='none';
+    document.getElementById('ed-scr').style.display='';
+    // Save auto-calculated engagement
+  ['ig','tt','fb','yt'].forEach(net=>{
+    const v = window['_eng_'+net];
+    if(v !== undefined) localStorage.setItem('ck_'+net+'-engagement', v);
+  });
+  // Also save raw interaction data
+  ['ig-likes','ig-comments','ig-shares',
+   'tt-likes-e','tt-comments','tt-shares',
+   'fb-likes-e','fb-comments','fb-shares',
+   'yt-likes-e','yt-comments','yt-shares'].forEach(k=>{
+    const inp = document.getElementById('ai-'+k);
+    if(inp && inp.value.trim()) localStorage.setItem('ck_raw_'+k, inp.value.trim());
+  });
+  // Load calculated engagement into network cards
+  ['ig','tt','fb','yt'].forEach(net=>{
+    const engId = {'ig':'ig-engagement','tt':'tt-eng','fb':'fb-eng','yt':'yt-eng'}[net];
+    const v = localStorage.getItem('ck_'+net+'-engagement');
+    if(v && engId){
+      const el = document.getElementById(engId);
+      if(el) el.textContent = v + '%';
+    }
+  });
+  TKEYS.forEach(k=>{
+      const v=localStorage.getItem('ck_'+k);
+      const inp=document.getElementById('ai-'+k);
+      if(inp&&v)inp.value=v;
+    });
+    // Prefill raw engagement data
+    ['ig-likes','ig-comments','ig-shares',
+     'tt-likes-e','tt-comments','tt-shares',
+     'fb-likes-e','fb-comments','fb-shares',
+     'yt-likes-e','yt-comments','yt-shares'].forEach(k=>{
+      const v = localStorage.getItem('ck_raw_'+k);
+      const inp = document.getElementById('ai-'+k);
+      if(inp && v) inp.value = v;
+    });
+    ['ig','tt','fb','yt'].forEach(net=>calcEng(net));
+    EKEYS.forEach(e=>{
+      const v=localStorage.getItem('ck_'+e.k);
+      const inp=document.getElementById('ai-'+e.k);
+      if(inp&&v)inp.value=v;
+    });
+    BKEYS.forEach(k=>{
+      const v=localStorage.getItem('ck_b_'+k);
+      const inp=document.getElementById('ai-'+k);
+      if(inp&&v)inp.value=v;
+    });
+    const ph=localStorage.getItem('ck_photo');
+    if(ph)applyPhoto(ph);
+  } else {
+    document.getElementById('pw-err').style.display='block';
+  }
+}
+
+function calcEng(net){
+  const segMap = {'ig':'ig-seg','tt':'tt-seg','fb':'fb-seg','yt':'yt-sub'};
+  const likeIds = {'ig':'ai-ig-likes','tt':'ai-tt-likes-e','fb':'ai-fb-likes-e','yt':'ai-yt-likes-e'};
+  const cmtIds  = {'ig':'ai-ig-comments','tt':'ai-tt-comments','fb':'ai-fb-comments','yt':'ai-yt-comments'};
+  const shrIds  = {'ig':'ai-ig-shares','tt':'ai-tt-shares','fb':'ai-fb-shares','yt':'ai-yt-shares'};
+
+  const likes    = parseFloat(document.getElementById(likeIds[net])?.value)||0;
+  const comments = parseFloat(document.getElementById(cmtIds[net])?.value)||0;
+  const shares   = parseFloat(document.getElementById(shrIds[net])?.value)||0;
+
+  // Get followers from saved value or admin field
+  const segField = {'ig':'ai-ig-seg','tt':'ai-tt-seg','fb':'ai-fb-seg','yt':'ai-yt-sub'};
+  const segVal = parseFloat(document.getElementById(segField[net])?.value?.replace(/[KkMm]/g,m=>m.toLowerCase()==='k'?'000':'000000'))||
+                 parseFloat(localStorage.getItem('ck_'+segMap[net])?.replace(/[KkMm]/g,m=>m.toLowerCase()==='k'?'000':'000000'))||1;
+
+  const total = likes + comments + shares;
+  const engPct = segVal > 0 ? Math.round((total / segVal) * 1000) / 10 : 0;
+
+  const result = document.getElementById('ai-'+net+'-eng-result');
+  if(result) result.textContent = engPct + '%';
+
+  // Store calculated value for later save
+  window['_eng_'+net] = engPct;
+}
+
+function saveAll(){
+  TKEYS.forEach(k=>{
+    const inp=document.getElementById('ai-'+k);
+    if(inp&&inp.value.trim())localStorage.setItem('ck_'+k,inp.value.trim());
+  });
+  EKEYS.forEach(e=>{
+    const inp=document.getElementById('ai-'+e.k);
+    if(inp&&inp.value.trim())localStorage.setItem('ck_'+e.k,inp.value.trim());
+  });
+  BKEYS.forEach(k=>{
+    const inp=document.getElementById('ai-'+k);
+    if(inp&&inp.value.trim())localStorage.setItem('ck_b_'+k,inp.value.trim());
+  });
+  const now=new Date().toLocaleDateString('es-GT',{day:'2-digit',month:'long',year:'numeric'});
+  localStorage.setItem('ck_upd',now);
+  loadAll();
+  closeAdm();
+}
+
+function dlPDF(){
+  const btn=document.querySelector('.btn-pdf');
+  btn.textContent='Generando PDF...';
+  btn.disabled=true;
+  const opt={
+    margin:0,
+    filename:'MediaKit-Coka-2026.pdf',
+    image:{type:'jpeg',quality:.95},
+    html2canvas:{scale:2,useCORS:true,backgroundColor:'#0a0a0a',logging:false},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+    pagebreak:{mode:'avoid-all'}
+  };
+  html2pdf().set(opt).from(document.querySelector('.page')).save().then(()=>{
+    btn.innerHTML='<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:#0a0a0a;fill:none;stroke-width:2.5"><path d="M12 16l-4-4h3V4h2v8h3l-4 4z"/><path d="M4 18h16v2H4z"/></svg> Descargar Media Kit PDF';
+    btn.disabled=false;
+  });
+}
+
+loadAll();
+
+// ── QUOTE ──
+const SRVS = ['tiktok','ytshort','ytlong','igreel','fbreel','stories','live','custom'];
+
+function openQuote(){
+  document.getElementById('quote-panel').classList.add('open');
+  const today = new Date().toLocaleDateString('es-GT',{day:'2-digit',month:'long',year:'numeric'});
+  if(!document.getElementById('qt-date').value) document.getElementById('qt-date').value = today;
+  if(!document.getElementById('qt-num').value) document.getElementById('qt-num').value = 'COT-' + Date.now().toString().slice(-4);
+  calcTotal();
+}
+function closeQuote(){document.getElementById('quote-panel').classList.remove('open');}
+document.addEventListener('DOMContentLoaded',function(){var qp=document.getElementById('quote-panel');if(qp)qp.addEventListener('click',function(e){if(e.target===qp)closeQuote();});});
+
+function calcTotal(){
+  let total = 0;
+  SRVS.forEach(k=>{
+    const q = parseFloat(document.getElementById('sq-'+k)?.value)||0;
+    const p = parseFloat(document.getElementById('sp-'+k)?.value)||0;
+    const sub = q * p;
+    total += sub;
+    const el = document.getElementById('ss-'+k);
+    if(el) el.textContent = 'Q' + sub.toLocaleString('es-GT');
+  });
+  document.getElementById('qt-total-val').textContent = 'Q' + total.toLocaleString('es-GT');
+  return total;
+}
+
+function generarCotPDF(){
+  const client = document.getElementById('qt-client').value || 'Cliente';
+  const date   = document.getElementById('qt-date').value;
+  const num    = document.getElementById('qt-num').value;
+  const notes  = document.getElementById('qt-notes').value;
+  const total  = calcTotal();
+
+  // Build rows only for services with quantity > 0
+  let rows = '';
+  SRVS.forEach(k=>{
+    const q = parseFloat(document.getElementById('sq-'+k)?.value)||0;
+    const p = parseFloat(document.getElementById('sp-'+k)?.value)||0;
+    const name = document.getElementById('sn-'+k)?.value;
+    if(q > 0 && name){
+      rows += `<tr>
+        <td style="padding:10px 14px;border-bottom:1px solid #222;font-size:14px;">${name}</td>
+        <td style="padding:10px 14px;border-bottom:1px solid #222;text-align:center;font-size:14px;">${q}</td>
+        <td style="padding:10px 14px;border-bottom:1px solid #222;text-align:right;font-size:14px;">Q${p.toLocaleString('es-GT')}</td>
+        <td style="padding:10px 14px;border-bottom:1px solid #222;text-align:right;font-size:14px;font-weight:600;">Q${(q*p).toLocaleString('es-GT')}</td>
+      </tr>`;
+    }
+  });
+
+  const pdfHTML = `
+  <div style="font-family:'DM Sans',Arial,sans-serif;background:#fff;color:#111;max-width:700px;margin:0 auto;padding:0;">
+
+    <!-- Header -->
+    <div style="background:#0a0a0a;padding:40px 40px 32px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 160px 160px 0;border-color:transparent #FFD93D transparent transparent;"></div>
+      <div style="font-family:'Arial Black',Arial,sans-serif;font-size:64px;line-height:1;color:#fff;letter-spacing:-.02em;margin-bottom:4px;">
+        C<span style="background:#FFD93D;color:#000;padding:0 6px;">O</span>KA
+      </div>
+      <div style="font-size:11px;color:#666;letter-spacing:.1em;font-family:monospace;margin-top:8px;">COTIZACIÓN DE SERVICIOS</div>
+    </div>
+
+    <!-- Meta -->
+    <div style="background:#f9f9f9;padding:20px 40px;display:flex;justify-content:space-between;border-bottom:2px solid #FFD93D;">
+      <div>
+        <div style="font-size:10px;color:#999;letter-spacing:.1em;font-family:monospace;margin-bottom:4px;">PARA</div>
+        <div style="font-size:18px;font-weight:700;">${client}</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:10px;color:#999;letter-spacing:.1em;font-family:monospace;margin-bottom:4px;">N° COTIZACIÓN</div>
+        <div style="font-size:16px;font-weight:700;color:#FFD93D;background:#0a0a0a;padding:2px 10px;display:inline-block;">${num}</div>
+        <div style="font-size:11px;color:#999;margin-top:6px;font-family:monospace;">${date}</div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div style="padding:32px 40px 0;">
+      <table style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr style="background:#0a0a0a;">
+            <th style="padding:12px 14px;text-align:left;font-size:10px;letter-spacing:.15em;color:#FFD93D;font-family:monospace;font-weight:700;">SERVICIO</th>
+            <th style="padding:12px 14px;text-align:center;font-size:10px;letter-spacing:.15em;color:#FFD93D;font-family:monospace;font-weight:700;">CANT.</th>
+            <th style="padding:12px 14px;text-align:right;font-size:10px;letter-spacing:.15em;color:#FFD93D;font-family:monospace;font-weight:700;">PRECIO UNIT.</th>
+            <th style="padding:12px 14px;text-align:right;font-size:10px;letter-spacing:.15em;color:#FFD93D;font-family:monospace;font-weight:700;">SUBTOTAL</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+
+    <!-- Total -->
+    <div style="margin:0 40px;background:#0a0a0a;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;margin-top:0;">
+      <div style="font-family:monospace;font-size:11px;letter-spacing:.2em;color:#666;text-transform:uppercase;">Total</div>
+      <div style="font-family:'Arial Black',Arial,sans-serif;font-size:36px;color:#FFD93D;letter-spacing:-.01em;">Q${total.toLocaleString('es-GT')}</div>
+    </div>
+
+    <!-- Notes -->
+    ${notes ? `<div style="padding:24px 40px 0;"><div style="font-size:10px;letter-spacing:.15em;font-family:monospace;color:#999;margin-bottom:8px;text-transform:uppercase;">Notas</div><div style="font-size:13px;color:#444;line-height:1.7;background:#f9f9f9;padding:14px 16px;border-left:3px solid #FFD93D;">${notes.replace(/\n/g,'<br>')}</div></div>` : ''}
+
+    <!-- Footer -->
+    <div style="padding:32px 40px;border-top:1px solid #eee;margin-top:32px;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-size:13px;font-weight:700;">Oscar Vinicio de León Ruíz</div>
+        <div style="font-size:12px;color:#999;margin-top:2px;font-family:monospace;">odeleonruiz2712@gmail.com</div>
+      </div>
+      <div style="font-family:'Arial Black',Arial,sans-serif;font-size:22px;color:#0a0a0a;opacity:.08;letter-spacing:-.01em;">COKA</div>
+    </div>
+  </div>`;
+
+  const win = window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Cotización ${num} - Coka</title><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"><\/script></head><body style="margin:0;background:#fff;">${pdfHTML}<script>window.onload=function(){html2pdf().set({margin:0,filename:'Cotizacion-${num}-Coka.pdf',image:{type:'jpeg',quality:.97},html2canvas:{scale:2,backgroundColor:'#fff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.body).save().then(()=>setTimeout(()=>window.close(),1000));}<\/script></body></html>`);
+  win.document.close();
+}
+
+// ── EMAILJS CONTACT FORM ──
+function enviarSolicitud(){
+  const name    = document.getElementById('f-name').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const company = document.getElementById('f-company').value.trim();
+  const services= document.getElementById('f-services').value;
+  const message = document.getElementById('f-message').value.trim();
+  const consent = document.getElementById('f-consent').checked;
+  const msg     = document.getElementById('form-msg');
+  const btn     = document.querySelector('.btn-submit');
+
+  if(!name || !email){
+    msg.textContent='// Por favor completa nombre y correo.';
+    msg.className='form-msg err';
+    msg.style.display='block';
+    return;
+  }
+  if(!consent){
+    msg.textContent='// Debes aceptar el consentimiento para continuar.';
+    msg.className='form-msg err';
+    msg.style.display='block';
+    return;
+  }
+
+  btn.disabled=true;
+  btn.textContent='Enviando...';
+
+  emailjs.send('service_t1nc0rr','krp64xa',{
+    to_email: 'odeleonruiz2712@gmail.com',
+    from_name: name,
+    name: name,
+    email: email,
+    company: company || 'No indicó',
+    services: services || 'No especificó',
+    message: message || 'Sin mensaje adicional'
+  }).then(()=>{
+    msg.textContent='// ¡Solicitud enviada! Te contactaré pronto.';
+    msg.className='form-msg ok';
+    msg.style.display='block';
+    btn.textContent='¡Enviado!';
+    // Reset form
+    ['f-name','f-email','f-company','f-message'].forEach(id=>{
+      document.getElementById(id).value='';
+    });
+    document.getElementById('f-services').value='';
+    document.getElementById('f-consent').checked=false;
+  }).catch(err=>{
+    msg.textContent='// Error al enviar. Intenta de nuevo o escríbeme directo.';
+    msg.className='form-msg err';
+    msg.style.display='block';
+    btn.disabled=false;
+    btn.textContent='Enviar solicitud de cotización';
+    console.error(err);
+  });
+}
+</script>
+
+<!-- ══ QUOTE MODAL ══ -->
+<div id="quote-panel">
+  <div class="qt-box">
+    <h2>Generar Cotización</h2>
+    <p>// solo visible para ti · el cliente recibe el PDF</p>
+
+    <div class="qt-sec">Datos del cliente</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div class="qt-f"><label>Nombre del cliente</label><input type="text" id="qt-client" placeholder="Ej: Empresa XYZ"></div>
+      <div class="qt-f"><label>Fecha</label><input type="text" id="qt-date" placeholder="Ej: 5 junio 2026"></div>
+    </div>
+    <div class="qt-f"><label>Número de cotización</label><input type="text" id="qt-num" placeholder="Ej: COT-001"></div>
+
+    <div class="qt-sec">Servicios — TikTok</div>
+    <div class="srv-hdr"><span>Servicio</span><span>Cantidad</span><span>Precio unit. (Q)</span><span>Subtotal</span></div>
+    <div class="srv-row" id="row-tiktok">
+      <input type="text" value="TikToks" id="sn-tiktok">
+      <input type="number" min="0" value="0" id="sq-tiktok" oninput="calcTotal()">
+      <input type="number" min="0" value="0" id="sp-tiktok" oninput="calcTotal()">
+      <div class="sub" id="ss-tiktok">Q0</div>
+    </div>
+
+    <div class="qt-sec">Servicios — YouTube</div>
+    <div class="srv-hdr"><span>Servicio</span><span>Cantidad</span><span>Precio unit. (Q)</span><span>Subtotal</span></div>
+    <div class="srv-row">
+      <input type="text" value="YouTube Shorts" id="sn-ytshort">
+      <input type="number" min="0" value="0" id="sq-ytshort" oninput="calcTotal()">
+      <input type="number" min="0" value="0" id="sp-ytshort" oninput="calcTotal()">
+      <div class="sub" id="ss-ytshort">Q0</div>
+    </div>
+    <div class="srv-row">
+      <input type="text" value="Videos largos YouTube" id="sn-ytlong">
+      <input type="number" min="0" value="0" id="sq-ytlong" oninput="calcTotal()">
+      <input type="number" min="0" value="0" id="sp-ytlong" oninput="calcTotal()">
+      <div class="sub" id="ss-ytlong">Q0</div>
+    </div>
+
+    <div class="qt-sec">Servicios — Instagram & Facebook</div>
+    <div class="srv-hdr"><span>Servicio</span><span>Cantidad</span><span>Precio unit. (Q)</span><span>Subtotal</span></div>
+    <div class="srv-row">
+      <input type="text" value="Reels (Instagram)" id="sn-igreel">
+      <input type="number" min="0" value="0" id="sq-igreel" oninput="calcTotal()">
+      <input type="number" min="0" value="0" id="sp-igreel" oninput="calcTotal()">
+      <div class="sub" id="ss-igreel">Q0</div>
+    </div>
+    <div class="srv-row">
+      <input type="text" value="Reels (Facebook)" id="sn-fbreel">
+      <input type="number" min="0" value="0" id="sq-fbreel" oninput="calcTotal()">
+      <input type="number" min="0" value="0" id="sp-fbreel" oninput="calcTotal()">
+      <div class="sub" id="ss-fbreel">Q0</div>
+    </div>
+    <div class="srv-row">
+      <input type="text" value="Stories" id="sn-stories">
+      <input type="number" min="0" value="0" id="sq-stories" oninput="calcTotal()">
+      <input type="number" min="0" value="0" id="sp-stories" oninput="calcTotal()">
+      <div class="sub" id="ss-stories">Q0</div>
+    </div>
+
+    <div class="qt-sec">Otros servicios</div>
+    <div class="srv-hdr"><span>Servicio</span><span>Cantidad</span><span>Precio unit. (Q)</span><span>Subtotal</span></div>
+    <div class="srv-row">
+      <input type="text" value="Lives" id="sn-live">
+      <input type="number" min="0" value="0" id="sq-live" oninput="calcTotal()">
+      <input type="number" min="0" value="0" id="sp-live" oninput="calcTotal()">
+      <div class="sub" id="ss-live">Q0</div>
+    </div>
+    <div class="srv-row">
+      <input type="text" placeholder="Servicio personalizado" id="sn-custom">
+      <input type="number" min="0" value="0" id="sq-custom" oninput="calcTotal()">
+      <input type="number" min="0" value="0" id="sp-custom" oninput="calcTotal()">
+      <div class="sub" id="ss-custom">Q0</div>
+    </div>
+
+    <div class="qt-total">
+      <div class="qt-total-lbl">Total cotización</div>
+      <div><span class="qt-total-val" id="qt-total-val">Q0</span></div>
+    </div>
+
+    <div class="qt-sec">Notas adicionales</div>
+    <div class="qt-note"><textarea id="qt-notes" placeholder="Ej: Incluye 1 revisión por pieza. Entrega en 7 días hábiles. Precios en Quetzales."></textarea></div>
+
+    <div class="qt-acts">
+      <button class="btn-gen-pdf" onclick="generarCotPDF()">Descargar cotización PDF</button>
+      <button class="btn-qt-close" onclick="closeQuote()">Cerrar</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
